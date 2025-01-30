@@ -81,4 +81,13 @@ public class MessageTypesService : IMessageTypesService
     {
         RegisterMessageType(messageType, typeof(T));
     }
+
+    public void RegisterMessage<T>() where T : INetworkMessage
+    {
+        var instance = Activator.CreateInstance<T>();
+
+        RegisterMessageType(instance.MessageType, typeof(T));
+
+        instance = default;
+    }
 }
