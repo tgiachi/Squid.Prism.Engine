@@ -1,0 +1,28 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Engine.Core", "src\Squid.Prism.Engine.Core\Squid.Prism.Engine.Core.csproj", "{6C6F2508-F5D6-4931-9583-E8CFE58F156B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Network", "src\Squid.Prism.Network\Squid.Prism.Network.csproj", "{9AFE98B7-2BC7-4E58-9412-3B44258C2A61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Engine.Tests", "tests\Squid.Prism.Engine.Tests\Squid.Prism.Engine.Tests.csproj", "{A528719F-C0A1-425A-97B9-F582357A8129}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C6F2508-F5D6-4931-9583-E8CFE58F156B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C6F2508-F5D6-4931-9583-E8CFE58F156B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C6F2508-F5D6-4931-9583-E8CFE58F156B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C6F2508-F5D6-4931-9583-E8CFE58F156B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AFE98B7-2BC7-4E58-9412-3B44258C2A61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AFE98B7-2BC7-4E58-9412-3B44258C2A61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AFE98B7-2BC7-4E58-9412-3B44258C2A61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AFE98B7-2BC7-4E58-9412-3B44258C2A61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A528719F-C0A1-425A-97B9-F582357A8129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A528719F-C0A1-425A-97B9-F582357A8129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A528719F-C0A1-425A-97B9-F582357A8129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A528719F-C0A1-425A-97B9-F582357A8129}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
