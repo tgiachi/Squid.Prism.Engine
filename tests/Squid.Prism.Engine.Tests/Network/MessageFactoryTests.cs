@@ -8,7 +8,7 @@ using Squid.Prism.Network.Services;
 
 namespace Squid.Prism.Engine.Tests.Network;
 
-public class vaiMessageFactoryTests
+public class MessageFactoryTests
 {
     private readonly INetworkMessageFactory _networkMessageFactory;
 
