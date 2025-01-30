@@ -1,19 +1,21 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Logging.Testing;
 using Squid.Prism.Engine.Tests.Data;
-using Squid.Prism.Network.Impl.Encoders;
+using Squid.Prism.Network.Data.Configs;
+using Squid.Prism.Network.Encoders;
 using Squid.Prism.Network.Interfaces.Services;
+using Squid.Prism.Network.Services;
 using Squid.Prism.Network.Types;
 
 namespace Squid.Prism.Engine.Tests.Network;
 
 public class PacketsTests
 {
-    private readonly INetworkMessageMapService _networkMessageMap;
+    private readonly IMessageTypesService _networkMessageMap;
 
     public PacketsTests()
     {
-        _networkMessageMap = new NetworkMessageMapService(NullLogger<NetworkMessageMapService>.Instance);
+        _networkMessageMap = new MessageTypesService(NullLogger<MessageTypesService>.Instance);
         _networkMessageMap.RegisterMessage<TestPacket>(0x01);
         _networkMessageMap.RegisterMessage<TestBigPacket>(0x02);
     }
@@ -21,11 +23,13 @@ public class PacketsTests
     [Test]
     public async Task TestCreatePacketBrotliAsync()
     {
-        var encoderDecoder = new DefaultMessageEncoderDecoder(
-            new FakeLogger<DefaultMessageEncoderDecoder>(),
-            _networkMessageMap,
-            CompressionAlgorithmType.Brotli
-        );
+        var settings = new EncoderDecoderSettings()
+        {
+            CompressionAlgorithm = CompressionAlgorithmType.Brotli
+        };
+
+        var encoder = new ProtobufEncoder(new FakeLogger<ProtobufEncoder>(), settings);
+        var decoder = new ProtobufDecoder(new FakeLogger<ProtobufDecoder>(), settings);
 
         var packet = new TestPacket
         {
@@ -33,12 +37,12 @@ public class PacketsTests
             TestValue = 1
         };
 
-        var encodedPacket = await encoderDecoder.EncodeAsync(packet);
+        var encodedPacket = await encoder.EncodeAsync(packet, packet.MessageType);
 
 
         Assert.That(encodedPacket, Is.Not.Null);
 
-        var decodedPacket = await encoderDecoder.DecodeAsync(encodedPacket);
+        var decodedPacket = await decoder.DecodeAsync(encodedPacket, typeof(TestPacket));
 
         Assert.That(decodedPacket, Is.Not.Null);
     }
@@ -46,11 +50,13 @@ public class PacketsTests
     [Test]
     public async Task TestCreatePacketNoneAsync()
     {
-        var encoderDecoder = new DefaultMessageEncoderDecoder(
-            new FakeLogger<DefaultMessageEncoderDecoder>(),
-            _networkMessageMap,
-            CompressionAlgorithmType.None
-        );
+        var settings = new EncoderDecoderSettings()
+        {
+            CompressionAlgorithm = CompressionAlgorithmType.None
+        };
+
+        var encoder = new ProtobufEncoder(new FakeLogger<ProtobufEncoder>(), settings);
+        var decoder = new ProtobufDecoder(new FakeLogger<ProtobufDecoder>(), settings);
 
         var packet = new TestPacket
         {
@@ -58,10 +64,10 @@ public class PacketsTests
             TestValue = 1
         };
 
-        var encodedPacket = await encoderDecoder.EncodeAsync(packet);
+        var encodedPacket = await encoder.EncodeAsync(packet, packet.MessageType);
 
         Assert.That(encodedPacket, Is.Not.Null);
-        var decodedPacket = await encoderDecoder.DecodeAsync(encodedPacket);
+        var decodedPacket = await decoder.DecodeAsync(encodedPacket, typeof(TestPacket));
 
         Assert.That(decodedPacket, Is.Not.Null);
     }
@@ -69,11 +75,13 @@ public class PacketsTests
     [Test]
     public async Task TestCreatePacketGzipAsync()
     {
-        var encoderDecoder = new DefaultMessageEncoderDecoder(
-            new FakeLogger<DefaultMessageEncoderDecoder>(),
-            _networkMessageMap,
-            CompressionAlgorithmType.GZip
-        );
+        var settings = new EncoderDecoderSettings()
+        {
+            CompressionAlgorithm = CompressionAlgorithmType.GZip
+        };
+
+        var encoder = new ProtobufEncoder(new FakeLogger<ProtobufEncoder>(), settings);
+        var decoder = new ProtobufDecoder(new FakeLogger<ProtobufDecoder>(), settings);
 
         var packet = new TestPacket
         {
@@ -81,11 +89,11 @@ public class PacketsTests
             TestValue = 1
         };
 
-        var encodedPacket = await encoderDecoder.EncodeAsync(packet);
+        var encodedPacket = await encoder.EncodeAsync(packet, packet.MessageType);
 
         Assert.That(encodedPacket, Is.Not.Null);
 
-        var decodedPacket = await encoderDecoder.DecodeAsync(encodedPacket);
+        var decodedPacket = await decoder.DecodeAsync(encodedPacket, typeof(TestPacket));
 
         Assert.That(decodedPacket, Is.Not.Null);
     }
@@ -93,11 +101,13 @@ public class PacketsTests
     [Test]
     public async Task TestCreatePacketDeflateAsync()
     {
-        var encoderDecoder = new DefaultMessageEncoderDecoder(
-            new FakeLogger<DefaultMessageEncoderDecoder>(),
-            _networkMessageMap,
-            CompressionAlgorithmType.Deflate
-        );
+        var settings = new EncoderDecoderSettings()
+        {
+            CompressionAlgorithm = CompressionAlgorithmType.Deflate
+        };
+
+        var encoder = new ProtobufEncoder(new FakeLogger<ProtobufEncoder>(), settings);
+        var decoder = new ProtobufDecoder(new FakeLogger<ProtobufDecoder>(), settings);
 
         var packet = new TestPacket
         {
@@ -105,11 +115,11 @@ public class PacketsTests
             TestValue = 1
         };
 
-        var encodedPacket = await encoderDecoder.EncodeAsync(packet);
+        var encodedPacket = await encoder.EncodeAsync(packet, packet.MessageType);
 
         Assert.That(encodedPacket, Is.Not.Null);
 
-        var decodedPacket = await encoderDecoder.DecodeAsync(encodedPacket);
+        var decodedPacket = await decoder.DecodeAsync(encodedPacket, typeof(TestPacket));
 
         Assert.That(decodedPacket, Is.Not.Null);
     }
@@ -117,11 +127,14 @@ public class PacketsTests
     [Test]
     public async Task TestCreateBigPacketAsync()
     {
-        var encoderDecoder = new DefaultMessageEncoderDecoder(
-            new FakeLogger<DefaultMessageEncoderDecoder>(),
-            _networkMessageMap,
-            CompressionAlgorithmType.Brotli
-        );
+        var settings = new EncoderDecoderSettings()
+        {
+            CompressionAlgorithm = CompressionAlgorithmType.Brotli
+        };
+
+        var encoder = new ProtobufEncoder(new FakeLogger<ProtobufEncoder>(), settings);
+        var decoder = new ProtobufDecoder(new FakeLogger<ProtobufDecoder>(), settings);
+
 
         var packet = new TestBigPacket()
         {
@@ -130,11 +143,11 @@ public class PacketsTests
             )).ToList()
         };
 
-        var encodedPacket = await encoderDecoder.EncodeAsync(packet);
+        var encodedPacket = await encoder.EncodeAsync(packet, packet.MessageType);
 
         Assert.That(encodedPacket, Is.Not.Null);
 
-        var decodedPacket = await encoderDecoder.DecodeAsync(encodedPacket);
+        var decodedPacket = await decoder.DecodeAsync(encodedPacket, typeof(TestBigPacket));
 
         Assert.That(decodedPacket, Is.Not.Null);
     }

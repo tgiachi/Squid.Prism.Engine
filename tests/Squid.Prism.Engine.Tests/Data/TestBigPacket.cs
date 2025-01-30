@@ -1,5 +1,6 @@
 using ProtoBuf;
-using Squid.Prism.Network.Interfaces.Base;
+
+using Squid.Prism.Network.Interfaces.Messages;
 
 namespace Squid.Prism.Engine.Tests.Data;
 

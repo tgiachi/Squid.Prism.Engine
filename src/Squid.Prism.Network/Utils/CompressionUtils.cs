@@ -1,5 +1,7 @@
 using System.IO.Compression;
+using Squid.Prism.Network.Interfaces.Metrics.Types;
 using Squid.Prism.Network.Types;
+
 
 namespace Squid.Prism.Network.Utils;
 
@@ -87,7 +89,7 @@ public static class CompressionUtils
             CompressionAlgorithmType.Brotli  => await CompressBrotli(bytes),
             CompressionAlgorithmType.GZip    => await CompressGZip(bytes),
             CompressionAlgorithmType.Deflate => await CompressDeflate(bytes),
-            CompressionAlgorithmType.None    => throw new ArgumentException("Not supported", nameof(algorithm)),
+            CompressionAlgorithmType.None    => bytes,
             _                                => throw new ArgumentException("Not supported", nameof(algorithm))
         };
     }
@@ -96,17 +98,13 @@ public static class CompressionUtils
         byte[] compressed, CompressionAlgorithmType algorithm = CompressionAlgorithmType.Brotli
     )
     {
-        switch (algorithm)
+        return algorithm switch
         {
-            case CompressionAlgorithmType.Brotli:
-                return await DecompressBrotli(compressed);
-            case CompressionAlgorithmType.GZip:
-                return await DecompressGZip(compressed);
-            case CompressionAlgorithmType.Deflate:
-                return await DecompressDeflate(compressed);
-            case CompressionAlgorithmType.None:
-            default:
-                throw new ArgumentException("Not supported", nameof(algorithm));
-        }
+            CompressionAlgorithmType.Brotli  => await DecompressBrotli(compressed),
+            CompressionAlgorithmType.GZip    => await DecompressGZip(compressed),
+            CompressionAlgorithmType.Deflate => await DecompressDeflate(compressed),
+            CompressionAlgorithmType.None    => compressed,
+            _                                => throw new ArgumentException("Not supported", nameof(algorithm))
+        };
     }
 }
