@@ -1,6 +1,5 @@
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
-using Squid.Prism.Network.Data.Events.Sessions;
 using Squid.Prism.Network.Interfaces.Services;
 using Squid.Prism.Network.Interfaces.Sessions;
 

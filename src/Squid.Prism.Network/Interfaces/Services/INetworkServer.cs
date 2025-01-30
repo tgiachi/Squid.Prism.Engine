@@ -16,11 +16,8 @@ public interface INetworkServer : IDisposable
         where TMessage : class, INetworkMessage;
 
     ValueTask BroadcastMessageAsync(INetworkMessage message);
-
     ValueTask SendMessagesAsync(IEnumerable<SessionNetworkMessage> messages);
     ValueTask SendMessageAsync(SessionNetworkMessage messages);
-
     ValueTask SendMessageAsync(string sessionId, INetworkMessage message);
-
     IObservable<NetworkMetricsSnapshot> MetricsObservable { get; }
 }
