@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Squid.Prism.Network.Interfaces.Base;
 using Squid.Prism.Network.Interfaces.Services;
-using Squid.Prism.Network.Types;
 
 namespace Squid.Prism.Network.Impl.Encoders;
 
