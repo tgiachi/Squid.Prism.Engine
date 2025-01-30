@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging.Testing;
 using Squid.Prism.Engine.Tests.Data;
 using Squid.Prism.Network.Data;
 using Squid.Prism.Network.Impl;
+using Squid.Prism.Network.Impl.Dispatcher;
 using Squid.Prism.Network.Interfaces.Services;
 
 namespace Squid.Prism.Engine.Tests.Network;

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Squid.Prism.Network.Data;
 using Squid.Prism.Network.Interfaces.Services;
 
-namespace Squid.Prism.Network.Impl;
+namespace Squid.Prism.Network.Impl.Dispatcher;
 
 public class NetworkDispatcherService : INetworkDispatcherService
 {
@@ -17,6 +17,7 @@ public class NetworkDispatcherService : INetworkDispatcherService
 
     public NetworkDispatcherService(ILogger<NetworkDispatcherService> logger)
     {
+        _logger = logger;
         _cts = new CancellationTokenSource();
         var channelSettings = new BoundedChannelOptions(100)
         {
@@ -27,8 +28,6 @@ public class NetworkDispatcherService : INetworkDispatcherService
 
         IncomingMessages = Channel.CreateBounded<NetworkMessageData>(channelSettings);
         OutgoingMessages = Channel.CreateBounded<NetworkMessageData>(channelSettings);
-
-        _logger = logger;
     }
 
 
