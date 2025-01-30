@@ -42,6 +42,7 @@ public class ProtobufDecoder : INetworkMessageDecoder
             return message;
         }
 
+        _logger.LogDebug("Parsed message type: {MessageType}", packet.MessageType);
         return Serializer.Deserialize(type, new MemoryStream(packet.Payload)) as INetworkMessage;
     }
 }
