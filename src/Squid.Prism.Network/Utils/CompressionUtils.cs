@@ -87,6 +87,7 @@ public static class CompressionUtils
             CompressionAlgorithmType.Brotli  => await CompressBrotli(bytes),
             CompressionAlgorithmType.GZip    => await CompressGZip(bytes),
             CompressionAlgorithmType.Deflate => await CompressDeflate(bytes),
+            CompressionAlgorithmType.None    => throw new ArgumentException("Not supported", nameof(algorithm)),
             _                                => throw new ArgumentException("Not supported", nameof(algorithm))
         };
     }
@@ -95,12 +96,17 @@ public static class CompressionUtils
         byte[] compressed, CompressionAlgorithmType algorithm = CompressionAlgorithmType.Brotli
     )
     {
-        return algorithm switch
+        switch (algorithm)
         {
-            CompressionAlgorithmType.Brotli  => await DecompressBrotli(compressed),
-            CompressionAlgorithmType.GZip    => await DecompressGZip(compressed),
-            CompressionAlgorithmType.Deflate => await DecompressDeflate(compressed),
-            _                                => throw new ArgumentException("Not supported", nameof(algorithm))
-        };
+            case CompressionAlgorithmType.Brotli:
+                return await DecompressBrotli(compressed);
+            case CompressionAlgorithmType.GZip:
+                return await DecompressGZip(compressed);
+            case CompressionAlgorithmType.Deflate:
+                return await DecompressDeflate(compressed);
+            case CompressionAlgorithmType.None:
+            default:
+                throw new ArgumentException("Not supported", nameof(algorithm));
+        }
     }
 }
