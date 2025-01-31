@@ -21,7 +21,7 @@ public class MessageTypesServiceTests
         _service.RegisterMessageType(1, typeof(MockNetworkMessage));
 
         Assert.That(typeof(MockNetworkMessage), Is.EqualTo(_service.GetMessageType(1)));
-        Assert.That(1, Is.EqualTo(_service.GetMessageType(typeof(MockNetworkMessage))));
+        Assert.That(_service.GetMessageType(typeof(MockNetworkMessage)), Is.EqualTo(1));
     }
 
     [Test]
@@ -48,7 +48,7 @@ public class MessageTypesServiceTests
         _service.RegisterMessage<MockNetworkMessage>(1);
 
         Assert.That(typeof(MockNetworkMessage), Is.EqualTo(_service.GetMessageType(1)));
-        Assert.That(1, Is.EqualTo(_service.GetMessageType(typeof(MockNetworkMessage))));
+        Assert.That(_service.GetMessageType(typeof(MockNetworkMessage)), Is.EqualTo(1));
     }
 
     [Test]
@@ -57,7 +57,7 @@ public class MessageTypesServiceTests
         _service.RegisterMessage<MockNetworkMessage>();
 
         Assert.That(typeof(MockNetworkMessage), Is.EqualTo(_service.GetMessageType(1)));
-        Assert.That(1, Is.EqualTo(_service.GetMessageType(typeof(MockNetworkMessage))));
+        Assert.That(_service.GetMessageType(typeof(MockNetworkMessage)), Is.EqualTo(1));
     }
 
     public class MockNetworkMessage : INetworkMessage
