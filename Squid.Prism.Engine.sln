@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Engine.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Network.Server", "src\Squid.Prism.Network.Server\Squid.Prism.Network.Server.csproj", "{AD65C0AE-8AC0-4CCF-B7F1-4AEB1AACB6C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Server", "src\Squid.Prism.Server\Squid.Prism.Server.csproj", "{CAF77033-0847-4A4B-9736-705FCB1BF59B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{AD65C0AE-8AC0-4CCF-B7F1-4AEB1AACB6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD65C0AE-8AC0-4CCF-B7F1-4AEB1AACB6C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD65C0AE-8AC0-4CCF-B7F1-4AEB1AACB6C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAF77033-0847-4A4B-9736-705FCB1BF59B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAF77033-0847-4A4B-9736-705FCB1BF59B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAF77033-0847-4A4B-9736-705FCB1BF59B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAF77033-0847-4A4B-9736-705FCB1BF59B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

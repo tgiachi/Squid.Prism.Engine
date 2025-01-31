@@ -6,6 +6,18 @@
 
 Squid.Prism.Engine is a passion-driven hobby project aimed at creating a flexible voxel-based MMO engine. The core vision is to enable players to craft and share their own unique worlds within an interconnected universe.
 
+
+## ℹ️  Disclaimer
+While there are many Minecraft-inspired projects out there, Squid.Prism.Engine's primary purpose is to serve as a learning platform and architectural proving ground for MMO game development. The voxel-based nature of the engine provides an excellent framework to tackle complex challenges in:
+
+Distributed systems
+Real-time networking
+World state synchronization
+Scalable architecture design
+Game engine development
+
+This makes it an ideal testbed for exploring and implementing MMO game architectures, regardless of the visual style chosen.
+
 ## 🌟 Vision
 
 The dream behind Squid.Prism.Engine is to create an MMO where creativity knows no bounds. Imagine a universe where:
