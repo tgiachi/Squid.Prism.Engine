@@ -1,3 +1,3 @@
-namespace Squid.Prism.Server.Data.Scripts;
+namespace Squid.Prism.Server.Core.Data.Scripts;
 
 public record ScriptClassData(Type ClassType);

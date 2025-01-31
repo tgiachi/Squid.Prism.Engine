@@ -4,8 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Squid.Prism.Engine.Core.Interfaces.Modules;
+using Squid.Prism.Server.Core.Modules;
 using Squid.Prism.Server.Data.Directories;
 using Squid.Prism.Server.Data.Runtime;
+using Squid.Prism.Server.Services;
 
 namespace Squid.Prism.Server;
 
@@ -37,6 +40,10 @@ class Program
 
         builder.Services.AddSingleton(directoryConfig);
 
+        LoadContainerModule(typeof(CoreServiceModule), builder.Services);
+
+
+        builder.Services.AddHostedService<SquidPrismServerManager>();
 
         builder.Logging.ClearProviders().AddSerilog();
 
@@ -49,6 +56,13 @@ class Program
 
 
         await app.RunAsync();
+    }
+
+    private static void LoadContainerModule(Type containerModuleType, IServiceCollection services)
+    {
+        var containerModule = Activator.CreateInstance(containerModuleType) as IContainerModule;
+
+        containerModule?.RegisterModule(services);
     }
 
     private static void PrintBanner()

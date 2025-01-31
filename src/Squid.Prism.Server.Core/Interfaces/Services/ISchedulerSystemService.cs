@@ -1,4 +1,4 @@
-namespace Squid.Prism.Server.Interfaces.Services;
+namespace Squid.Prism.Server.Core.Interfaces.Services;
 
 public interface ISchedulerSystemService : IDisposable
 {

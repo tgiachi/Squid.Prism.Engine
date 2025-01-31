@@ -1,6 +1,6 @@
-using Squid.Prism.Server.Data.Scripts;
+using Squid.Prism.Server.Core.Data.Scripts;
 
-namespace Squid.Prism.Server.Interfaces.Services;
+namespace Squid.Prism.Server.Core.Interfaces.Services;
 
 public interface IScriptEngineService : IDisposable
 {
