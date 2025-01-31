@@ -32,6 +32,13 @@ public static class RegisterPrismServiceExtension
         return services.RegisterPrismService(typeof(TService), typeof(TService), priority);
     }
 
+    public static IServiceCollection RegisterPrismService(
+        this IServiceCollection services, Type serviceType, int priority = 0
+    )
+    {
+        return services.RegisterPrismService(serviceType, serviceType, priority);
+    }
+
     private static void SearchForScriptAttribute(Type serviceType, IServiceCollection services)
     {
         if (serviceType.GetCustomAttribute<ScriptModuleAttribute>() != null)
