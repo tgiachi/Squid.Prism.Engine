@@ -1,5 +1,12 @@
 # Change Log
 
+<a name="0.6.0"></a>
+## [0.6.0](https://www.github.com/tgiachi/Squid.Prism.Engine/releases/tag/v0.6.0) (2025-01-31)
+
+### Features
+
+* created server core library ([8889b69](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/8889b696933fb989b68010c2260251444940cf2b))
+
 <a name="0.5.1"></a>
 ## [0.5.1](https://www.github.com/tgiachi/Squid.Prism.Engine/releases/tag/v0.5.1) (2025-01-31)
 
