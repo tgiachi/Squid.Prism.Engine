@@ -2,7 +2,7 @@
 
 ![squid logo](imgs/squid_logo.png "Squid Prism Logo")
 
-## 🎮 About  
+## 🎮 About
 
 Squid.Prism.Engine is a passion-driven hobby project aimed at creating a flexible voxel-based MMO engine. The core vision is to enable players to craft and share their own unique worlds within an interconnected universe.
 
@@ -18,7 +18,7 @@ The dream behind Squid.Prism.Engine is to create an MMO where creativity knows n
 
 The engine is built using modern technologies and practices:
 
-- **Core Engine**: C# with .NET 8
+- **Core Engine**: C# with .NET 9
 - **Network Layer**: Custom built networking with support for multiple protocols
 - **World Generation**: Voxel-based procedural generation
 - **Scripting**: LUA for game logic and world behavior
@@ -35,7 +35,7 @@ The engine is built using modern technologies and practices:
 
 - **Networking**
   - Scalable MMO architecture
-  - Cross-protocol support (TCP, UDP, WebSocket)
+  - Cross-protocol support (UDP, WebSocket)
   - Session management
   - State synchronization
 
@@ -70,3 +70,5 @@ While this is primarily a hobby project, contributions are welcome! Feel free to
 ## 🎨 Credits
 
 Created with passion by [@tgiachi](https://github.com/tgiachi)
+
+Special thanks to my cats Orione and Vega for their invaluable supervision and keyboard assistance 🐱
