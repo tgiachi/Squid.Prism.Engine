@@ -5,7 +5,23 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Version>0.5.0</Version>
+
+        <Authors>squid (squid@stormwind.it)</Authors>
+        <Description>SquidPrism Engine is a flexible voxel-based MMO engine built in C#. Features chunk-based world management, efficient networking for multiplayer environments, and a modular architecture.</Description>
+        <PackageTags>voxel;game-engine;mmo;networking;gamedev</PackageTags>
+        <RepositoryUrl>https://github.com/tgiachi/Squid.Prism.Engine</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/tgiachi/Squid.Prism.Engine</PackageProjectUrl>
+        <PackageIcon>prism_nuget.png</PackageIcon>
+
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="../../imgs/prism_nuget.png" Pack="true" PackagePath="/" />
+    </ItemGroup>
+
 
     <ItemGroup>
       <ProjectReference Include="..\Squid.Prism.Engine.Core\Squid.Prism.Engine.Core.csproj" />
