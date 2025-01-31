@@ -1,0 +1,58 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 # Necessario per Versionize
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Install Versionize
+      run: dotnet tool install --global Versionize
+
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
+    - name: Run Versionize
+      run: versionize
+      continue-on-error: true
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Test
+      run: dotnet test --no-build --configuration Release
+
+    - name: Pack
+      run: dotnet pack --no-build --configuration Release --output ./nupkg
+
+    - name: Push to NuGet
+      run: dotnet nuget push "./nupkg/*.nupkg" --api-key ${{secrets.NUGET_KEY}} --source https://api.nuget.org/v3/index.json
+
+    - name: Checkout develop
+      run: |
+        git fetch
+        git checkout develop
+        git pull
+
+    - name: Merge main into develop
+      run: |
+        git merge main
+        git push origin develop
