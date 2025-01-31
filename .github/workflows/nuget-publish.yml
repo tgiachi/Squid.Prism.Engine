@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -12,7 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 0 # Necessario per Versionize
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -56,3 +60,5 @@ jobs:
       run: |
         git merge main
         git push origin develop
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
