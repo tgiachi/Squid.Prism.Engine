@@ -24,7 +24,7 @@ public class NetworkSessionServiceTests
 
         _service.AddSession(sessionId, sessionObject);
 
-        Assert.That(1, Is.EqualTo(_service.SessionCount));
+        Assert.That(_service.SessionCount, Is.EqualTo(1));
         Assert.That(sessionObject, Is.EqualTo(_service.GetSessionObject(sessionId)));
     }
 
@@ -37,7 +37,7 @@ public class NetworkSessionServiceTests
         _service.AddSession(sessionId, sessionObject);
         _service.AddSession(sessionId, sessionObject);
 
-        Assert.That(1, Is.EqualTo(_service.SessionCount));
+        Assert.That(_service.SessionCount, Is.EqualTo(1));
     }
 
     [Test]
@@ -49,7 +49,7 @@ public class NetworkSessionServiceTests
         _service.AddSession(sessionId, sessionObject);
         _service.RemoveSession(sessionId);
 
-        Assert.That(0, Is.EqualTo(_service.SessionCount));
+        Assert.That(_service.SessionCount, Is.EqualTo(0));
     }
 
     [Test]
@@ -75,6 +75,6 @@ public class NetworkSessionServiceTests
         _service.AddSession(sessionId, sessionObject.Object);
         var expiredSessions = _service.GetExpiredSessions(TimeSpan.FromMinutes(5));
 
-        Assert.That(1, Is.EqualTo(expiredSessions.Count()));
+        Assert.That(expiredSessions.Count(), Is.EqualTo(1));
     }
 }

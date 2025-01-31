@@ -30,4 +30,10 @@
         <PackageReference Include="Serilog.Sinks.File" Version="6.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Assets\**\**">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

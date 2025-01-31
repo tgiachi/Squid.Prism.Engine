@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Diagnostics;
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -22,26 +24,42 @@ class Program
 
         var builder = Host.CreateApplicationBuilder(args);
 
+        var runtimeData = new RuntimeData
+        {
+            IsDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true",
+            RootDirectory = rootDirectory,
+            ProcessCount = Environment.ProcessorCount,
+            ProcessId = Environment.ProcessId
+        };
 
-        builder.Services.AddSingleton(
-            new RuntimeData()
-            {
-                IsDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true",
-                RootDirectory = rootDirectory,
-                ProcessCount = Environment.ProcessorCount,
-                ProcessId = Environment.ProcessId
-            }
-        );
+
+        builder.Services.AddSingleton(runtimeData);
 
         builder.Services.AddSingleton(directoryConfig);
 
 
         builder.Logging.ClearProviders().AddSerilog();
 
+        Log.Logger.Information(runtimeData.ToString());
 
         var app = builder.Build();
 
 
+        PrintBanner();
+
+
         await app.RunAsync();
+    }
+
+    private static void PrintBanner()
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+        var version = fvi.FileVersion;
+
+        foreach (var line in File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Assets", "banner.txt")))
+        {
+            Log.Logger.Information(line.Replace("{version}", version));
+        }
     }
 }
