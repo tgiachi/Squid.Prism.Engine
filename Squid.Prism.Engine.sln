@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Network", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Engine.Tests", "tests\Squid.Prism.Engine.Tests\Squid.Prism.Engine.Tests.csproj", "{A528719F-C0A1-425A-97B9-F582357A8129}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Network.Server", "src\Squid.Prism.Network.Server\Squid.Prism.Network.Server.csproj", "{AD65C0AE-8AC0-4CCF-B7F1-4AEB1AACB6C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{A528719F-C0A1-425A-97B9-F582357A8129}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A528719F-C0A1-425A-97B9-F582357A8129}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A528719F-C0A1-425A-97B9-F582357A8129}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD65C0AE-8AC0-4CCF-B7F1-4AEB1AACB6C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD65C0AE-8AC0-4CCF-B7F1-4AEB1AACB6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD65C0AE-8AC0-4CCF-B7F1-4AEB1AACB6C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD65C0AE-8AC0-4CCF-B7F1-4AEB1AACB6C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

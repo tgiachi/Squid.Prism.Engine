@@ -1,8 +1,9 @@
 using LiteNetLib;
+using Squid.Prism.Engine.Core.Interfaces.Events;
 
 namespace Squid.Prism.Network.Data.Events.Clients;
 
-public class ClientConnectedEvent
+public class ClientConnectedEvent : ISquidPrismEvent
 {
     public string SessionId { get; set; }
     public NetPeer Peer { get; set; }

@@ -1,8 +1,9 @@
+using Squid.Prism.Engine.Core.Interfaces.Events;
 using Squid.Prism.Network.Interfaces.Messages;
 
 namespace Squid.Prism.Network.Data.Events.Network;
 
-public class SendMessageEvent
+public class SendMessageEvent : ISquidPrismEvent
 {
     public string SessionId { get; set; }
 
