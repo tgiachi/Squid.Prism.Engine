@@ -24,7 +24,15 @@ public class SquidPrismServerManager : IHostedService
     {
         await LoadServicesAsync();
 
-        
+        var scriptEngine = _squidPrismServiceProvider.GetService<IScriptEngineService>();
+
+        var bootstrap = await scriptEngine.BootstrapAsync();
+
+        if (!bootstrap)
+        {
+            _logger.LogError("Failed to bootstrap the script engine.");
+            throw new InvalidOperationException("Failed to bootstrap the script engine.");
+        }
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
