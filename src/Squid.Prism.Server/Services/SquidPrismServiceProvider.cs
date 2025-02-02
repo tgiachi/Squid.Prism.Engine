@@ -1,7 +1,11 @@
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Squid.Prism.Engine.Core.Extensions;
+using Squid.Prism.Server.Core.Attributes.Configs;
 using Squid.Prism.Server.Core.Interfaces.Services;
 using Squid.Prism.Server.Data.Directories;
+using Squid.Prism.Server.Types;
 
 namespace Squid.Prism.Server.Services;
 
@@ -11,12 +15,16 @@ public class SquidPrismServiceProvider : ISquidPrismServiceProvider
     private readonly IServiceProvider _serviceProvider;
     private readonly DirectoriesConfig _directoriesConfig;
 
+    private readonly IScriptEngineService _scriptEngineService;
+
     public SquidPrismServiceProvider(
-        ILogger<SquidPrismServiceProvider> logger, IServiceProvider serviceProvider, DirectoriesConfig directoriesConfig
+        ILogger<SquidPrismServiceProvider> logger, IServiceProvider serviceProvider, DirectoriesConfig directoriesConfig,
+        IScriptEngineService scriptEngineService
     )
     {
         _serviceProvider = serviceProvider;
         _directoriesConfig = directoriesConfig;
+        _scriptEngineService = scriptEngineService;
         _logger = logger;
     }
 
@@ -29,6 +37,43 @@ public class SquidPrismServiceProvider : ISquidPrismServiceProvider
             throw new InvalidOperationException($"Service of type {typeof(TService).Name} not found.");
         }
 
+        GetConfigAttribute(typeof(TService), service);
+
         return service;
+    }
+
+    private void GetConfigAttribute(Type type, object instance)
+    {
+        foreach (var prop in type.GetProperties())
+        {
+            var configAttribute = prop.GetCustomAttribute<ConfigVariableAttribute>();
+
+            if (configAttribute != null)
+            {
+                var name = configAttribute.Name ?? prop.Name.ToSnakeCase();
+                _logger.LogDebug("Config variable {Name} found.", name);
+
+                var value = _scriptEngineService.GetContextVariable(name, prop.PropertyType, false);
+
+                if (value == null)
+                {
+                    var configFile = Path.Combine(_directoriesConfig[DirectoryType.Configs], $"{name}.json");
+
+                    if (!File.Exists(configFile))
+                    {
+                        _logger.LogDebug("Config file not {File} found, creating default", configFile);
+                        var defaultJson = Activator.CreateInstance(prop.PropertyType);
+                        File.WriteAllText(configFile, defaultJson.ToJson());
+                    }
+
+
+                    var json = File.ReadAllText(configFile);
+
+                    value = json.FromJson(prop.PropertyType);
+                }
+
+                prop.SetValue(instance, value);
+            }
+        }
     }
 }
