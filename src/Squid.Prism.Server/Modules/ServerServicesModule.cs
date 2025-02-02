@@ -12,7 +12,10 @@ public class ServerServicesModule : IContainerModule
 {
     public IServiceCollection RegisterModule(IServiceCollection services)
     {
-        return services.RegisterPrismService<IScriptEngineService, ScriptEngineService>()
+        return services
+            .RegisterPrismService<IEventDispatcherService, EventDispatcherService>()
+            .RegisterPrismService<ISchedulerSystemService, SchedulerSystemService>()
+            .RegisterPrismService<IScriptEngineService, ScriptEngineService>()
             .RegisterPrismService<ContextVariableModule>()
             .RegisterPrismService<LoggerModule>()
             .RegisterPrismService<ScriptModule>()
