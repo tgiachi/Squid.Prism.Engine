@@ -27,13 +27,20 @@ public partial class VariablesService
 
 
         AddDefaultVariables();
-
     }
 
     private void AddDefaultVariables()
     {
         AddVariable("cpu_count", Environment.ProcessorCount);
-
+        AddVariable("os_name", Environment.OSVersion.VersionString);
+        AddVariable("os_version", Environment.OSVersion.Version);
+        AddVariable("os_platform", Environment.OSVersion.Platform);
+        AddVariable("os_service_pack", Environment.OSVersion.ServicePack);
+        AddVariable("os_version_string", Environment.OSVersion.VersionString);
+        AddVariable("os_version_major", Environment.OSVersion.Version.Major);
+        AddVariable("os_version_minor", Environment.OSVersion.Version.Minor);
+        AddVariable("os_version_build", Environment.OSVersion.Version.Build);
+        AddVariable("os_version_revision", Environment.OSVersion.Version.Revision);
     }
 
     public void AddVariableBuilder(string variableName, Func<object> builder)

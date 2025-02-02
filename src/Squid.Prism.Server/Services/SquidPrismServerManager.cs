@@ -37,6 +37,27 @@ public class SquidPrismServerManager : IHostedService
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
+        await UnloadServicesAsync();
+    }
+
+    private async Task UnloadServicesAsync()
+    {
+        var servicesData = _squidPrismServiceProvider.GetService<List<ServiceDefinitionData>>();
+
+        foreach (var serviceType in servicesData.OrderByDescending(s => s.Priority))
+        {
+            _logger.LogInformation("Stopping service {ServiceType}.", serviceType.ServiceType.Name);
+            var service = _squidPrismServiceProvider.GetService(serviceType.ImplementationType);
+
+            if (service is ISquidPrismAutostart autostartService)
+            {
+                _logger.LogInformation("Stopping service {ServiceType}.", serviceType.ServiceType.Name);
+
+                await autostartService.StopAsync();
+
+                _logger.LogInformation("Service {ServiceType} stopped.", serviceType.ServiceType.Name);
+            }
+        }
     }
 
     private async Task LoadServicesAsync()
