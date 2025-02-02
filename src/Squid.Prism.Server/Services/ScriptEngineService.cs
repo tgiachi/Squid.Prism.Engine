@@ -43,7 +43,7 @@ public class ScriptEngineService : IScriptEngineService
     private IDisposable _fileWatcherSubscription;
 
     public ScriptEngineService(
-        DirectoriesConfig directoryConfig,  IServiceProvider serviceProvider,
+        DirectoriesConfig directoryConfig, IServiceProvider serviceProvider,
         List<ScriptClassData> scriptClassData
     )
     {
@@ -130,6 +130,12 @@ public class ScriptEngineService : IScriptEngineService
         {
             var obj = _serviceProvider.GetRequiredService(type);
 
+            var sClassAttr = type.GetCustomAttribute<ScriptModuleAttribute>();
+
+            _luaEngine.NewTable(sClassAttr.TableName);
+
+            var tName = _luaEngine.GetTable(sClassAttr.TableName);
+
             foreach (var scriptMethod in type.GetMethods())
             {
                 var sMethodAttr = scriptMethod.GetCustomAttribute<ScriptFunctionAttribute>();
@@ -139,11 +145,16 @@ public class ScriptEngineService : IScriptEngineService
                     continue;
                 }
 
-                ExtractFunctionDescriptor(sMethodAttr, scriptMethod);
+                ExtractFunctionDescriptor(sClassAttr.TableName, sMethodAttr, scriptMethod);
 
-                _logger.Debug("Adding script method {M}", sMethodAttr.Alias ?? scriptMethod.Name);
+                _logger.Debug(
+                    "Adding script method {TableNAme}.{M}",
+                    sClassAttr.TableName,
+                    sMethodAttr.Alias ?? scriptMethod.Name
+                );
 
-                _luaEngine[sMethodAttr.Alias ?? scriptMethod.Name] = CreateLuaEngineDelegate(obj, scriptMethod);
+
+                tName[sMethodAttr.Alias ?? scriptMethod.Name] = CreateLuaEngineDelegate(obj, scriptMethod);
             }
         }
         catch (Exception ex)
@@ -177,11 +188,11 @@ public class ScriptEngineService : IScriptEngineService
         }
     }
 
-    private void ExtractFunctionDescriptor(ScriptFunctionAttribute attribute, MethodInfo methodInfo)
+    private void ExtractFunctionDescriptor(string tableName, ScriptFunctionAttribute attribute, MethodInfo methodInfo)
     {
         var descriptor = new ScriptFunctionDescriptor
         {
-            FunctionName = attribute.Alias ?? methodInfo.Name,
+            FunctionName = tableName + "." + attribute.Alias ?? methodInfo.Name,
             Help = attribute.Help,
             Parameters = new(),
             ReturnType = methodInfo.ReturnType.Name,

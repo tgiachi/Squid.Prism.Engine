@@ -1,3 +1,3 @@
-local bootstap = function ()
-    -- hello
-end
+main.on_bootstrap(function ()
+    logger.info("test")
+end)
