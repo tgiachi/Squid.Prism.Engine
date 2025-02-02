@@ -1,8 +1,9 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Squid.Prism.Engine.Core.Configs;
 using Squid.Prism.Engine.Core.Extensions;
-using Squid.Prism.Server.Core.Attributes.Configs;
+using Squid.Prism.Engine.Core.Interfaces.Services;
 using Squid.Prism.Server.Core.Interfaces.Services;
 using Squid.Prism.Server.Data.Directories;
 using Squid.Prism.Server.Types;
@@ -14,17 +15,19 @@ public class SquidPrismServiceProvider : ISquidPrismServiceProvider
     private readonly ILogger _logger;
     private readonly IServiceProvider _serviceProvider;
     private readonly DirectoriesConfig _directoriesConfig;
+    private readonly IVariablesService _variablesService;
 
     private readonly IScriptEngineService _scriptEngineService;
 
     public SquidPrismServiceProvider(
         ILogger<SquidPrismServiceProvider> logger, IServiceProvider serviceProvider, DirectoriesConfig directoriesConfig,
-        IScriptEngineService scriptEngineService
+        IScriptEngineService scriptEngineService, IVariablesService variablesService
     )
     {
         _serviceProvider = serviceProvider;
         _directoriesConfig = directoriesConfig;
         _scriptEngineService = scriptEngineService;
+        _variablesService = variablesService;
         _logger = logger;
     }
 
@@ -49,13 +52,13 @@ public class SquidPrismServiceProvider : ISquidPrismServiceProvider
 
     private void GetConfigAttribute(Type type, object instance)
     {
-        foreach (var prop in type.GetProperties())
+        foreach (var prop in instance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
         {
             var configAttribute = prop.GetCustomAttribute<ConfigVariableAttribute>();
 
             if (configAttribute != null)
             {
-                var name = configAttribute.Name ?? prop.Name.ToSnakeCase();
+                var name = configAttribute.Name ?? prop.PropertyType.Name.ToSnakeCase();
                 _logger.LogDebug("Config variable {Name} found.", name);
 
                 var value = _scriptEngineService.GetContextVariable(name, prop.PropertyType, false);
@@ -72,7 +75,7 @@ public class SquidPrismServiceProvider : ISquidPrismServiceProvider
                     }
 
 
-                    var json = File.ReadAllText(configFile);
+                    var json = _variablesService.TranslateText(File.ReadAllText(configFile));
 
                     value = json.FromJson(prop.PropertyType);
                 }

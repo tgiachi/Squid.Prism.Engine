@@ -24,6 +24,16 @@ public partial class VariablesService
         _logger = logger;
         eventBusService.Subscribe<AddVariableEvent>(this);
         eventBusService.Subscribe<AddVariableBuilderEvent>(this);
+
+
+        AddDefaultVariables();
+
+    }
+
+    private void AddDefaultVariables()
+    {
+        AddVariable("cpu_count", Environment.ProcessorCount);
+
     }
 
     public void AddVariableBuilder(string variableName, Func<object> builder)

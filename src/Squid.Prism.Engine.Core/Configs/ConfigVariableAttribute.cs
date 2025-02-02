@@ -1,4 +1,4 @@
-namespace Squid.Prism.Server.Core.Attributes.Configs;
+namespace Squid.Prism.Engine.Core.Configs;
 
 [AttributeUsage(AttributeTargets.Property)]
 public class ConfigVariableAttribute : Attribute

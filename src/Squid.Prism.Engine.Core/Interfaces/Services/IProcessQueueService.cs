@@ -1,8 +1,9 @@
 using Lumyria.Core.Data.Metrics;
+using Squid.Prism.Engine.Core.Interfaces.Services.Base;
 
 namespace Squid.Prism.Engine.Core.Interfaces.Services;
 
-public interface IProcessQueueService : IDisposable
+public interface IProcessQueueService : IDisposable, ISquidPrismAutostart
 {
     IObservable<ProcessQueueMetric> GetMetrics { get; }
     int MaxParallelTask { get; set; }
