@@ -10,7 +10,7 @@ namespace Squid.Prism.Engine.Core.Impl.Services;
 public partial class VariablesService
     : IVariablesService, IEventBusListener<AddVariableEvent>, IEventBusListener<AddVariableBuilderEvent>
 {
-    [GeneratedRegex(@"\{([^}]+)\}")]
+    [GeneratedRegex(@"\$\{([^}]+)\}")]
     private static partial Regex MyRegex();
 
     private static Regex TokenRegex => MyRegex();
