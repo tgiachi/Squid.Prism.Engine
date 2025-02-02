@@ -30,14 +30,19 @@ public class SquidPrismServiceProvider : ISquidPrismServiceProvider
 
     public TService GetService<TService>()
     {
-        var service = _serviceProvider.GetRequiredService<TService>();
+        return (TService)GetService(typeof(TService));
+    }
+
+    public object? GetService(Type serviceType)
+    {
+        var service = _serviceProvider.GetService(serviceType);
 
         if (service == null)
         {
-            throw new InvalidOperationException($"Service of type {typeof(TService).Name} not found.");
+            throw new InvalidOperationException($"Service of type {serviceType.Name} not found.");
         }
 
-        GetConfigAttribute(typeof(TService), service);
+        GetConfigAttribute(serviceType, service);
 
         return service;
     }

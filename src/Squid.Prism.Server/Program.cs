@@ -5,10 +5,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Squid.Prism.Engine.Core.Interfaces.Modules;
+using Squid.Prism.Server.Core.Extensions;
 using Squid.Prism.Server.Core.Interfaces.Services;
 using Squid.Prism.Server.Core.Modules;
 using Squid.Prism.Server.Data.Directories;
 using Squid.Prism.Server.Data.Runtime;
+using Squid.Prism.Server.Modules;
 using Squid.Prism.Server.Services;
 
 namespace Squid.Prism.Server;
@@ -43,7 +45,9 @@ class Program
 
         builder.Services.AddSingleton<ISquidPrismServiceProvider, SquidPrismServiceProvider>();
 
-        LoadContainerModule(typeof(CoreServiceModule), builder.Services);
+        builder.Services
+            .LoadContainerModule<ServerServicesModule>()
+            .LoadContainerModule<CoreServiceModule>();
 
 
         builder.Services.AddHostedService<SquidPrismServerManager>();

@@ -1,8 +1,9 @@
+using Squid.Prism.Engine.Core.Interfaces.Services.Base;
 using Squid.Prism.Server.Core.Data.Scripts;
 
 namespace Squid.Prism.Server.Core.Interfaces.Services;
 
-public interface IScriptEngineService : IDisposable
+public interface IScriptEngineService : IDisposable, ISquidPrismAutostart
 {
     Task ExecuteFileAsync(string file);
 
