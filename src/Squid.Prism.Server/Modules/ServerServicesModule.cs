@@ -20,6 +20,7 @@ public class ServerServicesModule : IContainerModule
             .RegisterPrismService<ContextVariableModule>()
             .RegisterPrismService<LoggerModule>()
             .RegisterPrismService<ScriptModule>()
+            .RegisterPrismService<EventsModule>()
             .RegisterPrismService<VariableServiceModule>();
     }
 }
