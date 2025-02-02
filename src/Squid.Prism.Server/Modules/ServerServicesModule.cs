@@ -15,6 +15,7 @@ public class ServerServicesModule : IContainerModule
         return services
             .RegisterPrismService<IEventDispatcherService, EventDispatcherService>()
             .RegisterPrismService<ISchedulerSystemService, SchedulerSystemService>()
+            .RegisterPrismService<IHttpServerService, HttpServerService>()
             .RegisterPrismService<IScriptEngineService, ScriptEngineService>()
             .RegisterPrismService<ContextVariableModule>()
             .RegisterPrismService<LoggerModule>()

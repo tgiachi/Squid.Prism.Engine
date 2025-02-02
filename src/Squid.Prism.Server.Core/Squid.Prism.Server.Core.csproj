@@ -29,11 +29,11 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" />
       <PackageReference Include="NLua" Version="1.7.4" />
+      <PackageReference Include="Watson.Core" Version="6.3.5" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Attributes\" />
-      <Folder Include="Data\Internal\" />
       <Folder Include="Interfaces\" />
     </ItemGroup>
 
