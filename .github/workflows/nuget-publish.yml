@@ -56,9 +56,9 @@ jobs:
           git checkout develop
           git pull
 
-      - name: Merge main into develop
-        run: |
-          git merge main
-          git push origin develop
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Merge main into develop
+#        run: |
+#          git merge main
+#          git push origin develop
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

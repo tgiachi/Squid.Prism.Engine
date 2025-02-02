@@ -1,5 +1,20 @@
 # Change Log
 
+<a name="0.7.0"></a>
+## [0.7.0](https://www.github.com/tgiachi/Squid.Prism.Engine/releases/tag/v0.7.0) (2025-02-02)
+
+### Features
+
+* **core:** add ConfigVariableAttribute, ScriptFunctionAttribute, and ScriptModuleAttribute classes to improve code organization and provide metadata for configuration variables, script functions, and script modules ([beff8be](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/beff8bec132d5879ab691e070fd3a93bc6c33d97))
+* **init.lua:** add new Lua script 'bootstrap' to initialize the application ([b301c51](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/b301c516b12822bef3b9d08b6f39eb11d009164f))
+* **init.lua:** refactor bootstap function to use main.on_bootstrap for better ([c2b11a2](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/c2b11a27fca63cad3065251750183edad545c993))
+* **Squid.Prism.Server:** add ISquidPrismServiceProvider interface to define service provider contract ([efe41b3](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/efe41b3d46868570234e13c86c629546b97626e6))
+* **Squid.Prism.Server.Core:** add ContainerModuleExtension to load container modules and services dynamically ([bd30325](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/bd30325b282b58257fac0c55991bd2860426bb72))
+
+### Bug Fixes
+
+* **ConfigVariableAttribute.cs:** change Name property to be nullable to allow for null values ([9fbb1ef](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/9fbb1ef47775b08d1c88db7f21735e7a5e367458))
+
 <a name="0.6.0"></a>
 ## [0.6.0](https://www.github.com/tgiachi/Squid.Prism.Engine/releases/tag/v0.6.0) (2025-01-31)
 

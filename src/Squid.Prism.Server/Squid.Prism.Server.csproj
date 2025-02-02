@@ -5,7 +5,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>0.6.0</Version>
+        <Version>0.7.0</Version>
 
         <Authors>squid (squid@stormwind.it)</Authors>
 
@@ -35,10 +35,6 @@
       <None Update="Assets\**\**">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Interfaces\" />
     </ItemGroup>
 
 </Project>
