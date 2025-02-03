@@ -28,12 +28,14 @@ public class ServerServicesModule : IContainerModule
             .RegisterPrismService<EventsModule>()
             .RegisterPrismService<FileModule>()
             .RegisterPrismService<UsersModule>()
+            .RegisterPrismService<WorldModule>()
             .RegisterPrismService<PlayerServiceModule>()
             .RegisterPrismService<VariableServiceModule>();
 
 
         s
             .RegisterPrismService<IPlayerService, PlayerService>()
+            .RegisterPrismService<IWorldService, WorldService>()
             ;
 
 
