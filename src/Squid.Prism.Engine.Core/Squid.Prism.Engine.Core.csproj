@@ -4,7 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>0.8.0</Version>
+        <Version>0.8.1</Version>
         <Authors>squid (squid@stormwind.it)</Authors>
         <Description>SquidPrism Engine is a flexible voxel-based MMO engine built in C#. Features chunk-based world management, efficient networking for multiplayer environments, and a modular architecture.</Description>
         <PackageTags>voxel;game-engine;mmo;networking;gamedev</PackageTags>
@@ -14,13 +14,13 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/tgiachi/Squid.Prism.Engine</PackageProjectUrl>
         <PackageIcon>prism_nuget.png</PackageIcon>
-        
+
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="../../imgs/prism_nuget.png" Pack="true" PackagePath="/" />
     </ItemGroup>
-    
+
 
     <ItemGroup>
         <PackageReference Include="Humanizer.Core" Version="2.14.1" />
@@ -28,6 +28,6 @@
         <PackageReference Include="System.Reactive" Version="6.0.1" />
     </ItemGroup>
 
-   
+
 
 </Project>
