@@ -20,7 +20,6 @@ public class PlayerService : IPlayerService
 
     private readonly IVariablesService _variablesService;
 
-
     private readonly IDatabaseService _databaseService;
 
     private readonly INetworkSessionService _networkSessionService;
@@ -73,7 +72,7 @@ public class PlayerService : IPlayerService
         }
 
         var sessionObject = _networkSessionService.GetSessionObject(sessionId);
-        sessionObject.SetDataObject("isAuthenticated", true);
+        sessionObject.IsLoggedIn = true;
 
         await _networkServer.SendMessageAsync(sessionId, new LoginResponseMessage(true, "Login successful"));
     }
@@ -94,7 +93,7 @@ public class PlayerService : IPlayerService
     {
         var sessionObject = _networkSessionService.GetSessionObject(sessionId);
 
-        sessionObject.SetDataObject("isAuthenticated", false);
+        sessionObject.IsLoggedIn = false;
     }
 
     private async ValueTask SendMotdAsync(string sessionId)

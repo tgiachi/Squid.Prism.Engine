@@ -27,6 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Squid.Prism.Engine.Core\Squid.Prism.Engine.Core.csproj" />
+      <ProjectReference Include="..\Squid.Prism.Network\Squid.Prism.Network.csproj" />
     </ItemGroup>
 
     <ItemGroup>
