@@ -21,17 +21,7 @@ public class ServerServicesModule : IContainerModule
             .RegisterPrismService<IEventDispatcherService, EventDispatcherService>()
             .RegisterPrismService<ISchedulerSystemService, SchedulerSystemService>()
             .RegisterPrismService<IHttpServerService, HttpServerService>()
-            .RegisterPrismService<IScriptEngineService, ScriptEngineService>(10)
-            .RegisterPrismService<ContextVariableModule>()
-            .RegisterPrismService<LoggerModule>()
-            .RegisterPrismService<ScriptModule>()
-            .RegisterPrismService<EventsModule>()
-            .RegisterPrismService<FileModule>()
-            .RegisterPrismService<UsersModule>()
-            .RegisterPrismService<WorldModule>()
-            .RegisterPrismService<NoiseModule>()
-            .RegisterPrismService<PlayerServiceModule>()
-            .RegisterPrismService<VariableServiceModule>();
+            .RegisterPrismService<IScriptEngineService, ScriptEngineService>(10);
 
 
         s
