@@ -18,7 +18,7 @@ namespace Squid.Prism.Server.Builder;
 
 public class SquidPrismServerBuilder
 {
-    delegate void OnBuiltDelegate(IHost host);
+    private delegate void OnBuiltDelegate(IHost host);
 
     event OnBuiltDelegate OnBuilt;
 
