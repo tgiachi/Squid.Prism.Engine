@@ -3,7 +3,7 @@ using Squid.Prism.Server.Core.Attributes.Scripts;
 
 namespace Squid.Prism.Server.Engine.Scripts;
 
-[ScriptModule("logger")]
+[ScriptModule("log")]
 public class LoggerModule
 {
     private readonly ILogger _logger;

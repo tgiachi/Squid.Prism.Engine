@@ -9,19 +9,19 @@ function ctx.add_var(variableName, value) end
 
 ---@param message string
 ---@return nil
-function logger.info(message) end
+function log.info(message) end
 
 ---@param message string
 ---@return nil
-function logger.debug(message) end
+function log.debug(message) end
 
 ---@param message string
 ---@return nil
-function logger.warn(message) end
+function log.warn(message) end
 
 ---@param message string
 ---@return nil
-function logger.error(message) end
+function log.error(message) end
 
 ---@description Called when the server is bootstrapping
 ---@param function string
@@ -105,39 +105,39 @@ function player.get_motd() end
 ---@param max string
 ---@param num string
 ---@return number
-function math.lerp(min, max, num) end
+function math_s.lerp(min, max, num) end
 
 ---@description Clamp a value between min and max
 ---@param value string
 ---@param min string
 ---@param max string
 ---@return number
-function math.clamp(value, min, max) end
+function math_s.clamp(value, min, max) end
 
 ---@description Absolute value
 ---@param value string
 ---@return number
-function math.abs(value) end
+function math_s.abs(value) end
 
 ---@description Ceil value
 ---@param value string
 ---@return number
-function math.ceil(value) end
+function math_s.ceil(value) end
 
 ---@description Floor value
 ---@param value string
 ---@return number
-function math.floor(value) end
+function math_s.floor(value) end
 
 ---@description Round value
 ---@param value string
 ---@return number
-function math.round(value) end
+function math_s.round(value) end
 
 ---@description Square root
 ---@param value string
 ---@return number
-function math.sqrt(value) end
+function math_s.sqrt(value) end
 
 ---@param text string
 ---@return string
