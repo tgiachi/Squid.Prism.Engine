@@ -36,8 +36,8 @@ public class PlayerService : IPlayerService
         _eventBusService.SubscribeAsync<ClientConnectedEvent>(OnClientConnected);
         _eventBusService.SubscribeAsync<ClientDisconnectedEvent>(OnClientDisconnected);
 
-        _networkServer.RegisterMessageListener<VersionRequestMessage>((s, message) => SendVersionAsync(s));
-        _networkServer.RegisterMessageListener<MotdRequestMessage>((s, message) => SendMotdAsync(s));
+        _networkServer.RegisterMessageListener<VersionRequestMessage>((s, _) => SendVersionAsync(s));
+        _networkServer.RegisterMessageListener<MotdRequestMessage>((s, _) => SendMotdAsync(s));
     }
 
     private Task OnClientDisconnected(ClientDisconnectedEvent obj)
