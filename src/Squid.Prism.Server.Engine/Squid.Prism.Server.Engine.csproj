@@ -23,24 +23,24 @@
 
 
     <ItemGroup>
-        <ProjectReference Include="..\Squid.Prism.Engine.Core\Squid.Prism.Engine.Core.csproj"/>
-        <ProjectReference Include="..\Squid.Prism.Network.Server\Squid.Prism.Network.Server.csproj"/>
-        <ProjectReference Include="..\Squid.Prism.Network\Squid.Prism.Network.csproj"/>
-        <ProjectReference Include="..\Squid.Prism.Server.Core\Squid.Prism.Server.Core.csproj"/>
+        <ProjectReference Include="..\Squid.Prism.Engine.Core\Squid.Prism.Engine.Core.csproj" />
+        <ProjectReference Include="..\Squid.Prism.Network.Server\Squid.Prism.Network.Server.csproj" />
+        <ProjectReference Include="..\Squid.Prism.Network\Squid.Prism.Network.csproj" />
+        <ProjectReference Include="..\Squid.Prism.Server.Core\Squid.Prism.Server.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="LiteDB" Version="5.0.21" />
         <PackageReference Include="LiteDB.Async" Version="0.1.8" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1"/>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1"/>
-        <PackageReference Include="NLua" Version="1.7.4"/>
-        <PackageReference Include="Serilog" Version="4.2.0"/>
-        <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0"/>
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
-        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0"/>
-        <PackageReference Include="Watson" Version="6.3.5"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1" />
+        <PackageReference Include="NLua" Version="1.7.4" />
+        <PackageReference Include="Serilog" Version="4.2.0" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+        <PackageReference Include="Watson" Version="6.3.5" />
     </ItemGroup>
 
     <ItemGroup>
@@ -50,7 +50,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="../../imgs/prism_nuget.png" Pack="true" PackagePath="/"/>
+        <None Include="../../imgs/prism_nuget.png" Pack="true" PackagePath="/" />
     </ItemGroup>
 
 </Project>
