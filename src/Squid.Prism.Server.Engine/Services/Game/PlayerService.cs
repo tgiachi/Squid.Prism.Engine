@@ -1,5 +1,9 @@
 using Microsoft.Extensions.Logging;
 using Squid.Prism.Engine.Core.Configs;
+using Squid.Prism.Engine.Core.Interfaces.Services;
+using Squid.Prism.Network.Data.Events.Clients;
+using Squid.Prism.Network.Interfaces.Services;
+using Squid.Prism.Network.Packets;
 using Squid.Prism.Server.Core.Interfaces.Services;
 
 namespace Squid.Prism.Server.Engine.Services.Game;
@@ -8,12 +12,55 @@ public class PlayerService : IPlayerService
 {
     private readonly ILogger _logger;
 
+    private readonly INetworkServer _networkServer;
+
+    private readonly IEventBusService _eventBusService;
+
+    private readonly IVersionService _versionService;
+
+    private readonly IVariablesService _variablesService;
+
     [ConfigVariable("motd")] public string[] Motd { get; set; }
 
-    public PlayerService(ILogger<PlayerService> logger)
+    public PlayerService(
+        ILogger<PlayerService> logger, INetworkServer networkServer, IEventBusService eventBusService,
+        IVariablesService variablesService, IVersionService versionService
+    )
     {
         _logger = logger;
+        _networkServer = networkServer;
+        _eventBusService = eventBusService;
+        _variablesService = variablesService;
+        _versionService = versionService;
+
+        _eventBusService.SubscribeAsync<ClientConnectedEvent>(OnClientConnected);
+        _eventBusService.SubscribeAsync<ClientDisconnectedEvent>(OnClientDisconnected);
+
+        _networkServer.RegisterMessageListener<VersionRequestMessage>((s, message) => SendVersionAsync(s));
+        _networkServer.RegisterMessageListener<MotdRequestMessage>((s, message) => SendMotdAsync(s));
     }
+
+    private Task OnClientDisconnected(ClientDisconnectedEvent obj)
+    {
+        return Task.CompletedTask;
+    }
+
+    private async Task OnClientConnected(ClientConnectedEvent obj)
+    {
+        await SendVersionAsync(obj.SessionId);
+        await SendMotdAsync(obj.SessionId);
+    }
+
+    private async ValueTask SendMotdAsync(string sessionId)
+    {
+        await _networkServer.SendMessageAsync(sessionId, new MotdResponseMessage(Motd));
+    }
+
+    private async ValueTask SendVersionAsync(string sessionId)
+    {
+        await _networkServer.SendMessageAsync(sessionId, new VersionResponseMessage(_versionService.GetVersion()));
+    }
+
 
     public Task StartAsync(CancellationToken cancellationToken = default)
     {

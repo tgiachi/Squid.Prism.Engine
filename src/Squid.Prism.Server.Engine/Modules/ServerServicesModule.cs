@@ -35,7 +35,10 @@ public class ServerServicesModule : IContainerModule
 
         s
             .RegisterNetworkMessage<VersionRequestMessage>(DefaultMessageTypeConst.VersionMessageRequest)
-            .RegisterNetworkMessage<VersionResponseMessage>(DefaultMessageTypeConst.VersionMessageResponse);
+            .RegisterNetworkMessage<VersionResponseMessage>(DefaultMessageTypeConst.VersionMessageResponse)
+            .RegisterNetworkMessage<MotdRequestMessage>(DefaultMessageTypeConst.MotdMessageRequest)
+            .RegisterNetworkMessage<MotdResponseMessage>(DefaultMessageTypeConst.MotdMessageResponse)
+            ;
 
 
         return s;
