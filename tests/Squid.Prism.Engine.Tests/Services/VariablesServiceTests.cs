@@ -13,7 +13,7 @@ public class VariablesServiceTests
 
         variablesService.AddVariable("test", "mytest");
 
-        var translateValue = variablesService.TranslateText("{test}");
+        var translateValue = variablesService.TranslateText("${test}");
 
         Assert.That(translateValue, Is.EqualTo("mytest"));
 
