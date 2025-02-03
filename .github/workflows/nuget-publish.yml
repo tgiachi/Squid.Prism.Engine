@@ -53,8 +53,8 @@ jobs:
       - name: Run Versionize and capture version
         id: versionize
         run: |
-          OUTPUT=$(versionize -w)
-          VERSION=$(echo "$OUTPUT" | grep -oP 'Set version to \K[0-9]+\.[0-9]+\.[0-9]+' || echo "")
+
+          VERSION=$(sed -n 's/.*<Version>\(.*\)<\/Version>.*/\1/p' src/Squid.Prism.Engine.Core/Squid.Prism.Engine.Core.csproj)
           if [ ! -z "$VERSION" ]; then
             echo "New version: $VERSION"
             echo "version=$VERSION" >> $GITHUB_OUTPUT
