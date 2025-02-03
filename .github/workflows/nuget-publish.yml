@@ -65,6 +65,8 @@ jobs:
             echo "EOF" >> $GITHUB_OUTPUT
           fi
         continue-on-error: true
+      - name: Generate Changelog
+        run: echo CHANGELOG.md > ${{ github.workspace }}-CHANGELOG.txt
 
       - name: Create GitHub Release
         if: steps.versionize.outputs.version != ''
@@ -72,7 +74,7 @@ jobs:
         with:
           tag_name: v${{ steps.versionize.outputs.version }}
           name: Release v${{ steps.versionize.outputs.version }}
-          body: ${{ steps.versionize.outputs.changelog }}
+          body_path: ${{ github.workspace }}-CHANGELOG.txt
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
