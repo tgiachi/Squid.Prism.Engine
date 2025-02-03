@@ -2,14 +2,13 @@ using Microsoft.Extensions.Logging;
 using Squid.Prism.Engine.Core.Configs;
 using Squid.Prism.Server.Core.Interfaces.Services;
 
-namespace Squid.Prism.Server.Engine.Services;
+namespace Squid.Prism.Server.Engine.Services.Game;
 
 public class PlayerService : IPlayerService
 {
     private readonly ILogger _logger;
 
     [ConfigVariable("motd")] public string[] Motd { get; set; }
-
 
     public PlayerService(ILogger<PlayerService> logger)
     {

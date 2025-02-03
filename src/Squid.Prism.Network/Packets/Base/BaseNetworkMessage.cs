@@ -6,5 +6,5 @@ namespace Squid.Prism.Network.Packets.Base;
 
 public abstract class BaseNetworkMessage : INetworkMessage
 {
-    public int MessageType { get; }
+    public int MessageRequestType { get; }
 }

@@ -66,12 +66,12 @@ public class MessageTypesService : IMessageTypesService
 
         if (_messageTypes.ContainsKey(messageType))
         {
-            _logger.LogError("Message type {messageType} is already registered", messageType);
+            _logger.LogError("Message type {messageType} is already registered", messageType.ToString("X4"));
             throw new ArgumentException("Message type is already registered", nameof(messageType));
         }
 
 
-        _logger.LogDebug("Registered message type {messageType} with type {type}", messageType, type.Name);
+        _logger.LogDebug("Registered message type {messageType} with type {type}", messageType.ToString("X4"), type.Name);
 
         _messageTypes.Add(messageType, type);
         _messageTypesReverse.Add(type, messageType);
@@ -86,7 +86,7 @@ public class MessageTypesService : IMessageTypesService
     {
         var instance = Activator.CreateInstance<T>();
 
-        RegisterMessageType(instance.MessageType, typeof(T));
+        RegisterMessageType(instance.MessageRequestType, typeof(T));
 
         instance = default;
     }

@@ -4,5 +4,5 @@ namespace Squid.Prism.Network.Interfaces.Messages;
 
 public interface INetworkMessage
 {
-    int MessageType { get; }
+    int MessageRequestType { get; }
 }

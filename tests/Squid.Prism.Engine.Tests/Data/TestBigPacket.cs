@@ -7,7 +7,7 @@ namespace Squid.Prism.Engine.Tests.Data;
 [ProtoContract]
 public class TestBigPacket : INetworkMessage
 {
-    public int MessageType => 0x02;
+    public int MessageRequestType => 0x02;
 
 
     [ProtoMember(1)] public List<byte> Content { get; set; }
