@@ -11,7 +11,7 @@ public class ServerServicesModule : IContainerModule
 {
     public IServiceCollection RegisterModule(IServiceCollection services)
     {
-        return services
+        var s = services
             .RegisterPrismService<IEventDispatcherService, EventDispatcherService>()
             .RegisterPrismService<ISchedulerSystemService, SchedulerSystemService>()
             .RegisterPrismService<IHttpServerService, HttpServerService>()
@@ -20,6 +20,15 @@ public class ServerServicesModule : IContainerModule
             .RegisterPrismService<LoggerModule>()
             .RegisterPrismService<ScriptModule>()
             .RegisterPrismService<EventsModule>()
+            .RegisterPrismService<FileModule>()
+            .RegisterPrismService<PlayerServiceModule>()
             .RegisterPrismService<VariableServiceModule>();
+
+
+        s.RegisterPrismService<IPlayerService, PlayerService>()
+            ;
+
+
+        return s;
     }
 }

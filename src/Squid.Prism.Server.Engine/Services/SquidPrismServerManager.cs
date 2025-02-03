@@ -23,7 +23,7 @@ public class SquidPrismServerManager : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        await LoadServicesAsync();
+        await LoadSystemServicesAsync();
 
         var scriptEngine = _squidPrismServiceProvider.GetService<IScriptEngineService>();
 
@@ -34,14 +34,17 @@ public class SquidPrismServerManager : IHostedService
             _logger.LogError("Failed to bootstrap the script engine.");
             throw new InvalidOperationException("Failed to bootstrap the script engine.");
         }
+
+        await LoadGameServicesAsync();
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
-        await UnloadServicesAsync();
+        await UnloadGameServicesAsync();
+        await UnloadSystemServicesAsync();
     }
 
-    private async Task UnloadServicesAsync()
+    private async Task UnloadSystemServicesAsync()
     {
         var servicesData = _squidPrismServiceProvider.GetService<List<ServiceDefinitionData>>();
 
@@ -61,7 +64,7 @@ public class SquidPrismServerManager : IHostedService
         }
     }
 
-    private async Task LoadServicesAsync()
+    private async Task LoadSystemServicesAsync()
     {
         var servicesData = _squidPrismServiceProvider.GetService<List<ServiceDefinitionData>>();
 
@@ -77,6 +80,46 @@ public class SquidPrismServerManager : IHostedService
                 await autostartService.StartAsync();
 
                 _logger.LogInformation("Service {ServiceType} started.", serviceType.ServiceType.Name);
+            }
+        }
+    }
+
+    private async Task LoadGameServicesAsync()
+    {
+        var gameServicesData = _squidPrismServiceProvider.GetService<List<GameServiceDefinitionData>>();
+
+        foreach (var gameServiceType in gameServicesData.OrderBy(s => s.Priority))
+        {
+            _logger.LogInformation("Loading game service {GameServiceType}.", gameServiceType.ServiceType.Name);
+            var service = _squidPrismServiceProvider.GetService(gameServiceType.ImplementationType);
+
+            if (service is ISquidPrismGameService gameService)
+            {
+                _logger.LogInformation("Starting game service {GameServiceType}.", gameServiceType.ServiceType.Name);
+
+                await gameService.StartAsync();
+
+                _logger.LogInformation("Game service {GameServiceType} started.", gameServiceType.ServiceType.Name);
+            }
+        }
+    }
+
+    private async Task UnloadGameServicesAsync()
+    {
+        var gameServicesData = _squidPrismServiceProvider.GetService<List<GameServiceDefinitionData>>();
+
+        foreach (var gameServiceType in gameServicesData.OrderByDescending(s => s.Priority))
+        {
+            _logger.LogInformation("Stopping game service {GameServiceType}.", gameServiceType.ServiceType.Name);
+            var service = _squidPrismServiceProvider.GetService(gameServiceType.ImplementationType);
+
+            if (service is ISquidPrismGameService gameService)
+            {
+                _logger.LogInformation("Stopping game service {GameServiceType}.", gameServiceType.ServiceType.Name);
+
+                await gameService.StopAsync();
+
+                _logger.LogInformation("Game service {GameServiceType} stopped.", gameServiceType.ServiceType.Name);
             }
         }
     }
