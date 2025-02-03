@@ -47,4 +47,18 @@ public class MathModule
     {
         return (float)Math.Sqrt(value);
     }
+
+    [ScriptFunction("max", "Max value")]
+    public int Max(int a, int b)
+    {
+        return Math.Max(a, b);
+    }
+
+    [ScriptFunction("min", "Min value")]
+    public int Min(int a, int b)
+    {
+        return Math.Min(a, b);
+    }
+
+
 }

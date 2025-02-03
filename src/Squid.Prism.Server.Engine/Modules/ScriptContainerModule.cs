@@ -21,6 +21,8 @@ public class ScriptContainerModule : IContainerModule
             .RegisterPrismService<SchedulerJobModule>()
             .RegisterPrismService<PlayerServiceModule>()
             .RegisterPrismService<MathModule>()
+            .RegisterPrismService<RandomModule>()
+            .RegisterPrismService<ProcessingQueueModule>()
             .RegisterPrismService<VariableServiceModule>();
         ;
     }
