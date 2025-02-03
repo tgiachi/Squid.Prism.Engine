@@ -3,19 +3,19 @@ using Squid.Prism.Server.Core.Interfaces.Services.Game;
 
 namespace Squid.Prism.Server.Engine.Scripts;
 
-[ScriptModule("world")]
+[ScriptModule("blocks")]
 public class WorldModule
 {
-    private readonly IWorldService _worldService;
+    private readonly IBlockService _blockService;
 
-    public WorldModule(IWorldService worldService)
+    public WorldModule(IBlockService blockService)
     {
-        _worldService = worldService;
+        _blockService = blockService;
     }
 
     [ScriptFunction("add_block")]
     public void AddBlockData(byte blockId, string Name, int TextureId, bool IsSolid, bool IsTransparent, bool IsLiquid)
     {
-        _worldService.AddBlockData(blockId, Name, TextureId, IsSolid, IsTransparent, IsLiquid);
+        _blockService.AddBlockData(blockId, Name, TextureId, IsSolid, IsTransparent, IsLiquid);
     }
 }
