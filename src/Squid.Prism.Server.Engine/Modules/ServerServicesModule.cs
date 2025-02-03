@@ -29,6 +29,7 @@ public class ServerServicesModule : IContainerModule
             .RegisterPrismService<FileModule>()
             .RegisterPrismService<UsersModule>()
             .RegisterPrismService<WorldModule>()
+            .RegisterPrismService<NoiseModule>()
             .RegisterPrismService<PlayerServiceModule>()
             .RegisterPrismService<VariableServiceModule>();
 
