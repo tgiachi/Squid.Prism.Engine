@@ -39,4 +39,14 @@ public class FileModule
 
         return File.ReadAllLines(file);
     }
+
+    [ScriptFunction("write_file", "Write a file")]
+    public string WriteFile(string fileName, string content)
+    {
+        var file = Path.Combine(_directoriesConfig.Root, fileName);
+
+        File.WriteAllText(file, content);
+
+        return file;
+    }
 }

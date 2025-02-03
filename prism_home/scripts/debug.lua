@@ -1,5 +1,0 @@
-local meta = main.gen_lua_def()
-local f = io.open("meta.lua", "w+")
-f:write(meta)
-f:close()
-log.info("Write meta")
