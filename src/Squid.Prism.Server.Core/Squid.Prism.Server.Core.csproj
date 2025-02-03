@@ -18,6 +18,10 @@
 
     </PropertyGroup>
 
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <None Include="../../imgs/prism_nuget.png" Pack="true" PackagePath="/" />
     </ItemGroup>

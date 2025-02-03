@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Serilog;
+using Squid.Prism.Network.Data.Configs;
+using Squid.Prism.Network.Types;
 using Squid.Prism.Server.Engine.Builder;
 
 namespace Squid.Prism.Engine.Runner;
@@ -12,6 +14,12 @@ class Program
             .ConfigureLogger(
                 configuration =>
                     configuration.MinimumLevel.Debug().WriteTo.Console()
+            )
+            .SetNetworkEncoderDecoderSettings(
+                new EncoderDecoderSettings()
+                {
+                    CompressionAlgorithm = CompressionAlgorithmType.GZip
+                }
             )
             .Build()
             .RunAsync();

@@ -5,6 +5,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Squid.Prism.Engine.Core.Interfaces.Modules;
+using Squid.Prism.Network.Data.Configs;
+using Squid.Prism.Network.Data.Internal;
+using Squid.Prism.Network.Server.Modules;
 using Squid.Prism.Server.Core.Extensions;
 using Squid.Prism.Server.Core.Interfaces.Services;
 using Squid.Prism.Server.Core.Modules;
@@ -67,11 +70,26 @@ public class SquidPrismServerBuilder
 
         _hostApplicationBuilder.Services
             .LoadContainerModule<ServerServicesModule>()
+            .LoadContainerModule<NetworkServiceModule>()
             .LoadContainerModule<CoreServiceModule>();
 
         _hostApplicationBuilder.Services.AddHostedService<SquidPrismServerManager>();
 
         ConfigureLogger(null);
+    }
+
+    public SquidPrismServerBuilder AddNetworkMessage(int messageType, Type networkMessageType)
+    {
+        _hostApplicationBuilder.Services.AddToRegisterTypedList(new MessageTypeObject(messageType, networkMessageType));
+
+        return this;
+    }
+
+    public SquidPrismServerBuilder SetNetworkEncoderDecoderSettings(EncoderDecoderSettings settings)
+    {
+        _hostApplicationBuilder.Services.AddSingleton(settings);
+
+        return this;
     }
 
 

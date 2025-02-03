@@ -149,7 +149,7 @@ public partial class HttpServerService : IHttpServerService
         catch (Exception ex)
         {
             _logger.Error(ex, "Error reading file: {FileName}", fileName);
-            return (Encoding.UTF8.GetBytes("500 - Internal Server Error"), "text/plain", 500);
+            return ("500 - Internal Server Error"u8.ToArray(), "text/plain", 500);
         }
     }
 
@@ -218,7 +218,7 @@ public partial class HttpServerService : IHttpServerService
         await ctx.Response.Send("Hello from the default route!");
 
 
-    private string GetContentType(string path)
+    private static string GetContentType(string path)
     {
         return Path.GetExtension(path).ToLower() switch
         {

@@ -18,6 +18,10 @@
 
     </PropertyGroup>
 
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <None Include="../../imgs/prism_nuget.png" Pack="true" PackagePath="/" />
     </ItemGroup>
@@ -26,6 +30,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Squid.Prism.Engine.Core\Squid.Prism.Engine.Core.csproj" />
       <ProjectReference Include="..\Squid.Prism.Network\Squid.Prism.Network.csproj" />
+      <ProjectReference Include="..\Squid.Prism.Server.Core\Squid.Prism.Server.Core.csproj" />
     </ItemGroup>
 
 </Project>

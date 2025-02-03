@@ -2,6 +2,7 @@ using System.Reactive.Linq;
 using Humanizer;
 using LiteNetLib;
 using Microsoft.Extensions.Logging;
+using Squid.Prism.Engine.Core.Configs;
 using Squid.Prism.Engine.Core.Interfaces.Listeners;
 using Squid.Prism.Engine.Core.Interfaces.Services;
 using Squid.Prism.Network.Data.Events.Clients;
@@ -38,7 +39,7 @@ public class NetworkServer
 
     private readonly IMessageChannelService _messageChannelService;
 
-    private readonly NetworkServerConfig _config;
+    [ConfigVariable] public  NetworkServerConfig Config { get; set; }
 
     private readonly IEventBusService _eventBusService;
 
@@ -65,10 +66,10 @@ public class NetworkServer
         INetworkSessionService networkSessionService, IEventBusService eventBusService,
         IMessageChannelService messageChannelService, INetworkMessageFactory networkMessageFactory,
         NetworkServerMetrics metrics,
-        NetworkServerConfig config
+        NetworkServerConfig config = null
     )
     {
-        _config = config;
+        Config = config;
         _metrics = metrics;
         _logger = logger;
         _networkMessageFactory = networkMessageFactory;
@@ -214,18 +215,18 @@ public class NetworkServer
     }
 
 
-    public Task StartAsync()
+    public Task StartAsync(CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Starting server on port: {Port}", _config.Port);
+        _logger.LogInformation("Starting server on port: {Port}", Config.Port);
 
-        _netServer.Start(_config.Port);
+        _netServer.Start(Config.Port);
 
         IsRunning = true;
 
         return Task.CompletedTask;
     }
 
-    public Task StopAsync()
+    public Task StopAsync(CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Stopping server");
 
