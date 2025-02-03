@@ -14,8 +14,6 @@ public class PlayerService : IPlayerService
 
     private readonly INetworkServer _networkServer;
 
-    private readonly IEventBusService _eventBusService;
-
     private readonly IVersionService _versionService;
 
     private readonly IVariablesService _variablesService;
@@ -29,12 +27,11 @@ public class PlayerService : IPlayerService
     {
         _logger = logger;
         _networkServer = networkServer;
-        _eventBusService = eventBusService;
         _variablesService = variablesService;
         _versionService = versionService;
 
-        _eventBusService.SubscribeAsync<ClientConnectedEvent>(OnClientConnected);
-        _eventBusService.SubscribeAsync<ClientDisconnectedEvent>(OnClientDisconnected);
+        eventBusService.SubscribeAsync<ClientConnectedEvent>(OnClientConnected);
+        eventBusService.SubscribeAsync<ClientDisconnectedEvent>(OnClientDisconnected);
 
         _networkServer.RegisterMessageListener<VersionRequestMessage>((s, _) => SendVersionAsync(s));
         _networkServer.RegisterMessageListener<MotdRequestMessage>((s, _) => SendMotdAsync(s));
@@ -53,7 +50,8 @@ public class PlayerService : IPlayerService
 
     private async ValueTask SendMotdAsync(string sessionId)
     {
-        await _networkServer.SendMessageAsync(sessionId, new MotdResponseMessage(Motd));
+        var parsedMotd = Motd.Select(s => _variablesService.TranslateText(s));
+        await _networkServer.SendMessageAsync(sessionId, new MotdResponseMessage(parsedMotd.ToArray()));
     }
 
     private async ValueTask SendVersionAsync(string sessionId)
