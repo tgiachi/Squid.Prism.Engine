@@ -10,7 +10,7 @@
           ]
         }
       ],
-      "dest": "api"
+      "dest": "docs/api"
     }
   ],
   "build": {
@@ -31,7 +31,7 @@
         ]
       }
     ],
-    "output": "_site",
+    "output": "docs/",
     "template": [
       "default",
       "modern"
