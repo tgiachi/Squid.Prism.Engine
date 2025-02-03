@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Squid.Prism.Engine.Core\Squid.Prism.Engine.Core.csproj" />
+      <ProjectReference Include="..\Squid.Prism.Network.Server\Squid.Prism.Network.Server.csproj" />
+      <ProjectReference Include="..\Squid.Prism.Network\Squid.Prism.Network.csproj" />
+      <ProjectReference Include="..\Squid.Prism.Server.Core\Squid.Prism.Server.Core.csproj" />
+      <ProjectReference Include="..\Squid.Prism.Server.Engine\Squid.Prism.Server.Engine.csproj" />
+    </ItemGroup>
+
+</Project>
