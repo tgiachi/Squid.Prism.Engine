@@ -1,0 +1,3 @@
+{
+  "max_parallel_tasks": ${cpu_count} 
+}

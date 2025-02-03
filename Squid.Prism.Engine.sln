@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Engine.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Network.Server", "src\Squid.Prism.Network.Server\Squid.Prism.Network.Server.csproj", "{AD65C0AE-8AC0-4CCF-B7F1-4AEB1AACB6C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Server", "src\Squid.Prism.Server\Squid.Prism.Server.csproj", "{CAF77033-0847-4A4B-9736-705FCB1BF59B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Server.Engine", "src\Squid.Prism.Server.Engine\Squid.Prism.Server.Engine.csproj", "{CAF77033-0847-4A4B-9736-705FCB1BF59B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squid.Prism.Server.Core", "src\Squid.Prism.Server.Core\Squid.Prism.Server.Core.csproj", "{E6BC1D78-2227-4CBD-A543-21DB6FBDD1D2}"
 EndProject

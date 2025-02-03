@@ -10,7 +10,7 @@ namespace Squid.Prism.Engine.Core.Impl.Services;
 public partial class VariablesService
     : IVariablesService, IEventBusListener<AddVariableEvent>, IEventBusListener<AddVariableBuilderEvent>
 {
-    [GeneratedRegex(@"\{([^}]+)\}")]
+    [GeneratedRegex(@"\$\{([^}]+)\}")]
     private static partial Regex MyRegex();
 
     private static Regex TokenRegex => MyRegex();
@@ -24,6 +24,23 @@ public partial class VariablesService
         _logger = logger;
         eventBusService.Subscribe<AddVariableEvent>(this);
         eventBusService.Subscribe<AddVariableBuilderEvent>(this);
+
+
+        AddDefaultVariables();
+    }
+
+    private void AddDefaultVariables()
+    {
+        AddVariable("cpu_count", Environment.ProcessorCount);
+        AddVariable("os_name", Environment.OSVersion.VersionString);
+        AddVariable("os_version", Environment.OSVersion.Version);
+        AddVariable("os_platform", Environment.OSVersion.Platform);
+        AddVariable("os_service_pack", Environment.OSVersion.ServicePack);
+        AddVariable("os_version_string", Environment.OSVersion.VersionString);
+        AddVariable("os_version_major", Environment.OSVersion.Version.Major);
+        AddVariable("os_version_minor", Environment.OSVersion.Version.Minor);
+        AddVariable("os_version_build", Environment.OSVersion.Version.Build);
+        AddVariable("os_version_revision", Environment.OSVersion.Version.Revision);
     }
 
     public void AddVariableBuilder(string variableName, Func<object> builder)

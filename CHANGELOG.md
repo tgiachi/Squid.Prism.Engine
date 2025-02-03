@@ -1,5 +1,23 @@
 # Change Log
 
+<a name="0.8.0"></a>
+## [0.8.0](https://www.github.com/tgiachi/Squid.Prism.Engine/releases/tag/v0.8.0) (2025-02-03)
+
+### Features
+
+* added Squid.Prism.Service.Engine library ([f25427b](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/f25427b44a49b10ea3a3573bc036a694b45311d4))
+* removed server app console for make library ([e22f2cb](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/e22f2cb60336582c31cd8a5c4c38668a02730044))
+* **configs:** add process_queue_config.json with max_parallel_tasks set to 8 ([9091d0f](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/9091d0f6550bdcd32740a759827420625b2d10ee))
+* **http_server:** add HttpServerConfig class with default port value of 8080 ([63c6a39](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/63c6a399bedaefb6fa508113ab4f40e937fabd35))
+* **Scheduler:** add AddSchedulerJobEvent to handle adding new scheduler jobs ([95f5d84](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/95f5d84b916b33ac8a546f782b3ecf8ed7c870d7))
+* **ServerServicesModule.cs:** register EventsModule to provide event handling functionality ([8868ba6](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/8868ba612d20ecac0ebf78f57ac523b600b06a62))
+* **Squid.Prism.Server:** add SquidPrismServerBuilder class to encapsulate server building logic for improved modularity and maintainability ([5d83c14](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/5d83c1488037db36ea4f08af7eddb1f91fa77224))
+* **VariablesService.cs:** add default OS-related variables to improve system information collection ([db13805](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/db13805d5ebc1ebbaddeb81876522878f6b795cc))
+
+### Bug Fixes
+
+* **process_queue_config.json:** change max_parallel_tasks value to use ${cpu_count} variable for flexibility ([c11351f](https://www.github.com/tgiachi/Squid.Prism.Engine/commit/c11351f46edf713f872b335f8b157c5469e0fc8d))
+
 <a name="0.7.0"></a>
 ## [0.7.0](https://www.github.com/tgiachi/Squid.Prism.Engine/releases/tag/v0.7.0) (2025-02-02)
 

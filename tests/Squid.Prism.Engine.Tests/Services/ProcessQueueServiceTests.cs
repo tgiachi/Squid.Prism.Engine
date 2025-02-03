@@ -9,7 +9,10 @@ public class ProcessQueueServiceTests
     [Test]
     public async Task TestProcessQueueService()
     {
-        var processQueueService = new ProcessQueueService(new FakeLogger<ProcessQueueService>(), new ProcessQueueConfig());
+        var processQueueService = new ProcessQueueService(new FakeLogger<ProcessQueueService>());
+        processQueueService.Config = new ProcessQueueConfig();
+
+        processQueueService.StartAsync();
 
         Assert.That(processQueueService, Is.Not.Null);
 

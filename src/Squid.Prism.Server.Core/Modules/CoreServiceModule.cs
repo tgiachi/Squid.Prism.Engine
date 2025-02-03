@@ -15,6 +15,7 @@ public class CoreServiceModule : IContainerModule
                 .RegisterPrismService<IEventBusService, EventBusService>()
                 .RegisterPrismService<IVariablesService, VariablesService>(1)
                 .RegisterPrismService<IVersionService, VersionService>()
+                .RegisterPrismService<IProcessQueueService, ProcessQueueService>()
             ;
     }
 }

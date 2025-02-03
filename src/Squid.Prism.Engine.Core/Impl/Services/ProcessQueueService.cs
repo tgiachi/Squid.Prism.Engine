@@ -5,6 +5,7 @@ using System.Reactive.Subjects;
 using System.Threading.Tasks.Dataflow;
 using Lumyria.Core.Data.Metrics;
 using Microsoft.Extensions.Logging;
+using Squid.Prism.Engine.Core.Configs;
 using Squid.Prism.Engine.Core.Data.Configs;
 using Squid.Prism.Engine.Core.Interfaces.Services;
 
@@ -13,6 +14,9 @@ namespace Squid.Prism.Engine.Core.Impl.Services;
 public class ProcessQueueService : IProcessQueueService
 {
     public int MaxParallelTask { get; set; }
+
+    [ConfigVariable] public ProcessQueueConfig Config { get; set; }
+
     public IObservable<ProcessQueueMetric> GetMetrics => _metricsSubject.AsObservable();
 
     private readonly ILogger _logger;
@@ -28,10 +32,9 @@ public class ProcessQueueService : IProcessQueueService
 
     // private readonly SemaphoreSlim _mainThreadSemaphore = new(1);
 
-    public ProcessQueueService(ILogger<ProcessQueueService> logger, ProcessQueueConfig config)
+    public ProcessQueueService(ILogger<ProcessQueueService> logger)
     {
         _logger = logger;
-        MaxParallelTask = config.MaxParallelTasks;
         _queues = new ConcurrentDictionary<string, ActionBlock<Func<Task>>>();
         _stats = new ConcurrentDictionary<string, ProcessStats>();
         _metricsSubject = new Subject<ProcessQueueMetric>();
@@ -257,5 +260,19 @@ public class ProcessQueueService : IProcessQueueService
         _stats.Clear();
 
         GC.SuppressFinalize(this);
+    }
+
+    public Task StartAsync(CancellationToken cancellationToken = default)
+    {
+        MaxParallelTask = Config.MaxParallelTasks;
+
+        _logger.LogInformation("Process queue service started with {MaxParallelTask} parallel tasks", MaxParallelTask);
+
+        return Task.CompletedTask;
+    }
+
+    public Task StopAsync(CancellationToken cancellationToken = default)
+    {
+        return Task.CompletedTask;
     }
 }
