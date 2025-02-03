@@ -5,6 +5,7 @@ using Squid.Prism.Network.Data.Events.Clients;
 using Squid.Prism.Network.Interfaces.Services;
 using Squid.Prism.Network.Packets;
 using Squid.Prism.Server.Core.Interfaces.Services;
+using Squid.Prism.Server.Core.Interfaces.Services.Game;
 
 namespace Squid.Prism.Server.Engine.Services.Game;
 
@@ -18,23 +19,33 @@ public class PlayerService : IPlayerService
 
     private readonly IVariablesService _variablesService;
 
+    private readonly INetworkSessionService _networkSessionService;
+
     [ConfigVariable("motd")] public string[] Motd { get; set; }
 
     public PlayerService(
         ILogger<PlayerService> logger, INetworkServer networkServer, IEventBusService eventBusService,
-        IVariablesService variablesService, IVersionService versionService
+        IVariablesService variablesService, IVersionService versionService, INetworkSessionService networkSessionService
     )
     {
         _logger = logger;
         _networkServer = networkServer;
         _variablesService = variablesService;
         _versionService = versionService;
+        _networkSessionService = networkSessionService;
 
         eventBusService.SubscribeAsync<ClientConnectedEvent>(OnClientConnected);
         eventBusService.SubscribeAsync<ClientDisconnectedEvent>(OnClientDisconnected);
 
         _networkServer.RegisterMessageListener<VersionRequestMessage>((s, _) => SendVersionAsync(s));
         _networkServer.RegisterMessageListener<MotdRequestMessage>((s, _) => SendMotdAsync(s));
+
+        _networkServer.RegisterMessageListener<LoginRequestMessage>(OnLoginMessageRequest);
+    }
+
+    private ValueTask OnLoginMessageRequest(string sessionId, LoginRequestMessage requestMessage)
+    {
+        return new ValueTask();
     }
 
     private Task OnClientDisconnected(ClientDisconnectedEvent obj)
@@ -44,8 +55,16 @@ public class PlayerService : IPlayerService
 
     private async Task OnClientConnected(ClientConnectedEvent obj)
     {
+        InitSession(obj.SessionId);
         await SendVersionAsync(obj.SessionId);
         await SendMotdAsync(obj.SessionId);
+    }
+
+    private void InitSession(string sessionId)
+    {
+        var sessionObject = _networkSessionService.GetSessionObject(sessionId);
+
+        sessionObject.SetDataObject("isAuthenticated", false);
     }
 
     private async ValueTask SendMotdAsync(string sessionId)
