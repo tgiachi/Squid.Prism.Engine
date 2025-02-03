@@ -71,7 +71,9 @@ public class SquidPrismServerBuilder
         _hostApplicationBuilder.Services
             .LoadContainerModule<ServerServicesModule>()
             .LoadContainerModule<NetworkServiceModule>()
-            .LoadContainerModule<CoreServiceModule>();
+            .LoadContainerModule<CoreServiceModule>()
+            .LoadContainerModule<ScriptContainerModule>()
+            ;
 
         _hostApplicationBuilder.Services.AddHostedService<SquidPrismServerManager>();
 

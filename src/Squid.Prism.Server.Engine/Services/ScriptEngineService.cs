@@ -11,7 +11,6 @@ using Squid.Prism.Server.Core.Attributes.Scripts;
 using Squid.Prism.Server.Core.Data.Scripts;
 using Squid.Prism.Server.Core.Interfaces.Services;
 using Squid.Prism.Server.Core.Utils.Script;
-
 using Squid.Prism.Server.Engine.Data.Directories;
 using Squid.Prism.Server.Engine.Types;
 
@@ -71,19 +70,26 @@ public class ScriptEngineService : IScriptEngineService
     public async Task StartAsync(CancellationToken cancellationToken = default)
     {
         await ScanScriptModulesAsync();
-        var scriptsToLoad = Directory.GetFiles(
-            _directoryConfig[DirectoryType.Scripts],
-            _fileExtension,
-            SearchOption.AllDirectories
-        );
+        // var scriptsToLoad = Directory.GetFiles(
+        //     _directoryConfig[DirectoryType.Scripts],
+        //     _fileExtension,
+        //     SearchOption.TopDirectoryOnly
+        // );
+
+        var scriptsToLoad = new[] { "index.lua", "init.lua" };
 
         foreach (var script in scriptsToLoad)
         {
-            var fileName = Path.GetFileName(script);
+            var fileName = Path.Combine(_directoryConfig[DirectoryType.Scripts], script);
+
+            if (!File.Exists(fileName))
+            {
+                continue;
+            }
 
             if (!fileName.StartsWith(_prefixToIgnore))
             {
-                await ExecuteFileAsync(script);
+                await ExecuteFileAsync(fileName);
             }
         }
 
