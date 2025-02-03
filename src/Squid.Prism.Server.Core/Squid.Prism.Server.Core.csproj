@@ -4,7 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>0.8.3</Version>
+        <Version>0.8.4</Version>
         <Authors>squid (squid@stormwind.it)</Authors>
         <Description>SquidPrism Engine is a flexible voxel-based MMO engine built in C#. Features chunk-based world management, efficient networking for multiplayer environments, and a modular architecture.</Description>
         <PackageTags>voxel;game-engine;mmo;networking;gamedev</PackageTags>
