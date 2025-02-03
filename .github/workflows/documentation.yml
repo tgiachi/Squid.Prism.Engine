@@ -31,7 +31,7 @@ jobs:
         with:
           dotnet-version: 9.x
 
-      - run: cp README.md docs/index.md
+      - run: cp README.md index.md
       - run: dotnet tool update -g docfx
       - run: docfx ./docfx.json
 
