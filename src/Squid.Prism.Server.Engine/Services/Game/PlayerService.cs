@@ -4,6 +4,7 @@ using Squid.Prism.Engine.Core.Interfaces.Services;
 using Squid.Prism.Network.Data.Events.Clients;
 using Squid.Prism.Network.Interfaces.Services;
 using Squid.Prism.Network.Packets;
+using Squid.Prism.Server.Core.Entities;
 using Squid.Prism.Server.Core.Interfaces.Services;
 using Squid.Prism.Server.Core.Interfaces.Services.Game;
 
@@ -19,13 +20,17 @@ public class PlayerService : IPlayerService
 
     private readonly IVariablesService _variablesService;
 
+
+    private readonly IDatabaseService _databaseService;
+
     private readonly INetworkSessionService _networkSessionService;
 
     [ConfigVariable("motd")] public string[] Motd { get; set; }
 
     public PlayerService(
         ILogger<PlayerService> logger, INetworkServer networkServer, IEventBusService eventBusService,
-        IVariablesService variablesService, IVersionService versionService, INetworkSessionService networkSessionService
+        IVariablesService variablesService, IVersionService versionService, INetworkSessionService networkSessionService,
+        IDatabaseService databaseService
     )
     {
         _logger = logger;
@@ -33,6 +38,7 @@ public class PlayerService : IPlayerService
         _variablesService = variablesService;
         _versionService = versionService;
         _networkSessionService = networkSessionService;
+        _databaseService = databaseService;
 
         eventBusService.SubscribeAsync<ClientConnectedEvent>(OnClientConnected);
         eventBusService.SubscribeAsync<ClientDisconnectedEvent>(OnClientDisconnected);
@@ -43,9 +49,33 @@ public class PlayerService : IPlayerService
         _networkServer.RegisterMessageListener<LoginRequestMessage>(OnLoginMessageRequest);
     }
 
-    private ValueTask OnLoginMessageRequest(string sessionId, LoginRequestMessage requestMessage)
+    private async ValueTask OnLoginMessageRequest(string sessionId, LoginRequestMessage requestMessage)
     {
-        return new ValueTask();
+        var user = (await _databaseService.QueryAsync<UserEntity>(entity => entity.Username == requestMessage.Username))
+            .FirstOrDefault();
+
+        if (user == null)
+        {
+            await _networkServer.SendMessageAsync(
+                sessionId,
+                new LoginResponseMessage(false, "Invalid username or password")
+            );
+            return;
+        }
+
+        if (user.Password != requestMessage.Password)
+        {
+            await _networkServer.SendMessageAsync(
+                sessionId,
+                new LoginResponseMessage(false, "Invalid username or password")
+            );
+            return;
+        }
+
+        var sessionObject = _networkSessionService.GetSessionObject(sessionId);
+        sessionObject.SetDataObject("isAuthenticated", true);
+
+        await _networkServer.SendMessageAsync(sessionId, new LoginResponseMessage(true, "Login successful"));
     }
 
     private Task OnClientDisconnected(ClientDisconnectedEvent obj)
