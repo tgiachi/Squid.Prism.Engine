@@ -67,7 +67,7 @@ function users.add_user(username, password, isAdmin) end
 ---@param IsTransparent string
 ---@param IsLiquid string
 ---@return nil
-function world.add_block(blockId, Name, TextureId, IsSolid, IsTransparent, IsLiquid) end
+function blocks.add_block(blockId, Name, TextureId, IsSolid, IsTransparent, IsLiquid) end
 
 ---@description Set the message of the day
 ---@param motd string

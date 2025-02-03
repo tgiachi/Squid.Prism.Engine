@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Squid.Prism.Server.Core.Data.Services;
 using Squid.Prism.Server.Core.Interfaces.Services.Game;
+using Squid.Prism.Server.Core.Types;
 
 namespace Squid.Prism.Server.Engine.Services.Game;
 
@@ -32,7 +33,32 @@ public class BlockService : IBlockService
 
     public void AddBlockData(byte blockId, string Name, int TextureId, bool IsSolid, bool IsTransparent, bool IsLiquid)
     {
-        _logger.LogInformation("Adding block data for block {BlockId} Name: {Name}", blockId.ToString("x8"), Name);
-        _blockData.Add(blockId, new WorldBlockData(blockId, Name, TextureId, IsSolid, IsTransparent, IsLiquid));
+        var metaType = BlockMetaType.None_Or_Air;
+
+        if (IsSolid)
+        {
+            metaType |= BlockMetaType.Solid;
+        }
+
+        if (IsTransparent)
+        {
+            metaType |= BlockMetaType.Transparent;
+        }
+
+        if (IsLiquid)
+        {
+            metaType |= BlockMetaType.Liquid;
+        }
+
+
+        _logger.LogInformation(
+            "Adding block data for block {BlockId} Name: {Name}, MetaType: {Meta}",
+            blockId.ToString("x8"),
+            Name,
+            metaType
+        );
+
+
+        _blockData[blockId] = new WorldBlockData(blockId, Name, TextureId, metaType);
     }
 }
