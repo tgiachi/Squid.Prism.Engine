@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Squid.Prism.Engine.Core.Interfaces.Services.Base;
 using Squid.Prism.Server.Core.Attributes.Scripts;
 using Squid.Prism.Server.Core.Data.Scripts;
 using Squid.Prism.Server.Core.Data.Services;
@@ -14,8 +15,23 @@ public static class RegisterPrismServiceExtension
     {
         SearchForScriptAttribute(serviceImplementation, services);
 
-        return services.AddSingleton(serviceInterface, serviceImplementation)
-            .AddToRegisterTypedList(new ServiceDefinitionData(serviceImplementation, serviceInterface, priority));
+        services.AddSingleton(serviceInterface, serviceImplementation);
+
+        if (IsTypeImplementingInterface(serviceInterface, typeof(ISquidPrismService)) &&
+            IsTypeImplementingInterface(serviceImplementation, typeof(ISquidPrismService)))
+        {
+            services.AddToRegisterTypedList(new ServiceDefinitionData(serviceImplementation, serviceInterface, priority));
+        }
+
+        if (IsTypeImplementingInterface(serviceInterface, typeof(ISquidPrismGameService)) &&
+            IsTypeImplementingInterface(serviceImplementation, typeof(ISquidPrismGameService)))
+        {
+            services.AddToRegisterTypedList(
+                new GameServiceDefinitionData(serviceImplementation, serviceInterface, priority)
+            );
+        }
+
+        return services;
     }
 
     public static IServiceCollection RegisterPrismService<TServiceInterface, TServiceImplementation>(
@@ -45,5 +61,10 @@ public static class RegisterPrismServiceExtension
         {
             services.AddToRegisterTypedList(new ScriptClassData(serviceType));
         }
+    }
+
+    private static bool IsTypeImplementingInterface(Type type, Type interfaceType)
+    {
+        return interfaceType.IsAssignableFrom(type);
     }
 }

@@ -119,6 +119,18 @@ public class SquidPrismServerBuilder
         return _applicationHost;
     }
 
+    public SquidPrismServerBuilder RegisterDbEntity(Type entityType)
+    {
+        _hostApplicationBuilder.Services.RegisterDatabaseEntity(entityType);
+        return this;
+    }
+
+    public SquidPrismServerBuilder RegisterDbEntity<TDbEntity>() where TDbEntity : class
+    {
+        _hostApplicationBuilder.Services.RegisterDatabaseEntity(typeof(TDbEntity));
+        return this;
+    }
+
     public SquidPrismServerBuilder RegisterPrismService<TServiceInterface, TServiceImplementation>(
         int priority = 0
     ) where TServiceInterface : class where TServiceImplementation : class, TServiceInterface

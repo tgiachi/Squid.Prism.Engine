@@ -8,7 +8,7 @@ namespace Squid.Prism.Engine.Tests.Data;
 [ProtoContract]
 public class TestPacket : INetworkMessage
 {
-    public int MessageType => 0x01;
+    public int MessageRequestType => 0x01;
 
     [ProtoMember(1)] public string TestKey { get; set; }
 

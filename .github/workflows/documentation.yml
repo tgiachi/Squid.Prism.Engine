@@ -30,10 +30,8 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 9.x
-
-      - run: cp README.md docs/index.md
       - run: dotnet tool update -g docfx
-      - run: docfx ./docfx.json
+      - run: cp README.md docs/index.md && docfx ./docfx.json
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
