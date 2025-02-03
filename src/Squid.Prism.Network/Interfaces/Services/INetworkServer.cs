@@ -1,3 +1,4 @@
+using Squid.Prism.Engine.Core.Interfaces.Services.Base;
 using Squid.Prism.Network.Data.Internal;
 using Squid.Prism.Network.Interfaces.Listeners;
 using Squid.Prism.Network.Interfaces.Messages;
@@ -5,7 +6,7 @@ using Squid.Prism.Network.Interfaces.Metrics.Server;
 
 namespace Squid.Prism.Network.Interfaces.Services;
 
-public interface INetworkServer : IDisposable
+public interface INetworkServer : IDisposable, ISquidPrismAutostart
 {
     bool IsRunning { get; }
 
