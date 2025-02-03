@@ -33,17 +33,14 @@ public class UsersModule
 
         var user = new UserEntity
         {
-            Id = Guid.NewGuid(),
             Username = username,
             Password = password,
             IsAdmin = isAdmin,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
         };
 
         _databaseService.InsertAsync(user).Wait();
 
-        _logger.LogInformation($"User {username} added is Admin: {isAdmin}");
+        _logger.LogInformation("User {username} added is Admin: {isAdmin}", username, isAdmin);
         return true;
     }
 }
