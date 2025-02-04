@@ -10,4 +10,5 @@ public enum DirectoryType
     Worlds,
     Logs,
     Http,
+    Assets
 }

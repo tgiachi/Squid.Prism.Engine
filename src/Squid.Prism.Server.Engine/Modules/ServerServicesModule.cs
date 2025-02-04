@@ -28,6 +28,7 @@ public class ServerServicesModule : IContainerModule
             .RegisterPrismService<IPlayerService, PlayerService>()
             .RegisterPrismService<IWorldService, WorldService>()
             .RegisterPrismService<IBlockService, BlockService>()
+            .RegisterPrismService<IAssetService, AssetService>()
             ;
 
 
