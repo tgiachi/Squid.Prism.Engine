@@ -5,7 +5,11 @@ namespace Squid.Prism.Server.Core.Data.World.Build;
 public class ChunkBuilderContext
 {
     private readonly Dictionary<string, object> _data = new();
+
+    public byte[] Biomes { get; set; }
+
     public int Seed { get; set; }
+
     public Vector3 Position { get; }
 
     public ChunkEntity Chunk { get; set; }
@@ -14,6 +18,7 @@ public class ChunkBuilderContext
     {
         Position = position;
         Chunk = new ChunkEntity(position);
+        Biomes = new byte[ChunkEntity.Size * ChunkEntity.Size];
     }
 
 
