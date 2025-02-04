@@ -24,6 +24,7 @@ public class ScriptContainerModule : IContainerModule
             .RegisterPrismService<RandomModule>()
             .RegisterPrismService<ProcessingQueueModule>()
             .RegisterPrismService<WorldBuilderModule>()
+            .RegisterPrismService<AssetModule>()
             .RegisterPrismService<VariableServiceModule>();
         ;
     }

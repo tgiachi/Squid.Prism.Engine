@@ -179,6 +179,16 @@ function task_queue.add_task_main_thread(callback) end
 ---@return nil
 function world_builder.add_layer(builder) end
 
+---@param id string
+---@param name string
+---@return nil
+function world_builder.add_biome(id, name) end
+
+---@param name string
+---@param fileName string
+---@return nil
+function assets.add_file(name, fileName) end
+
 ---@param text string
 ---@return string
 function vars.r_text(text) end
