@@ -33,6 +33,11 @@ public class AssetService : IAssetService
 
     public void AddAsset(string name, string fileName)
     {
+        if (!File.Exists(fileName))
+        {
+            throw new FileNotFoundException($"File not found: {fileName}");
+        }
+
         var extension = Path.GetExtension(fileName);
 
         if (extension is ".png" or ".jpg" or ".jpeg")

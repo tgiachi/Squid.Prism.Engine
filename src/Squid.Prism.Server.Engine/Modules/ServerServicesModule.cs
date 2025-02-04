@@ -7,7 +7,6 @@ using Squid.Prism.Server.Core.Entities;
 using Squid.Prism.Server.Core.Extensions;
 using Squid.Prism.Server.Core.Interfaces.Services;
 using Squid.Prism.Server.Core.Interfaces.Services.Game;
-using Squid.Prism.Server.Engine.Scripts;
 using Squid.Prism.Server.Engine.Services;
 using Squid.Prism.Server.Engine.Services.Game;
 
@@ -24,7 +23,7 @@ public class ServerServicesModule : IContainerModule
             .RegisterPrismService<IScriptEngineService, ScriptEngineService>(10);
 
 
-        s
+        services
             .RegisterPrismService<IPlayerService, PlayerService>()
             .RegisterPrismService<IWorldService, WorldService>()
             .RegisterPrismService<IBlockService, BlockService>()
@@ -32,12 +31,12 @@ public class ServerServicesModule : IContainerModule
             ;
 
 
-        s
+        services
             .RegisterPrismService<IDatabaseService, LiteDbDatabaseService>(9)
             .RegisterDatabaseEntity<UserEntity>();
 
 
-        s
+        services
             .RegisterNetworkMessage<VersionRequestMessage>(DefaultMessageTypeConst.VersionMessageRequest)
             .RegisterNetworkMessage<VersionResponseMessage>(DefaultMessageTypeConst.VersionMessageResponse)
             .RegisterNetworkMessage<MotdRequestMessage>(DefaultMessageTypeConst.MotdMessageRequest)
