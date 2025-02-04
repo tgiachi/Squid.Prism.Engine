@@ -4,14 +4,16 @@ namespace Squid.Prism.Server.Core.Data.World;
 
 public class ChunkEntity
 {
-    public static readonly int Size = 16;
-    public static readonly int Height = 16;
+    public const int Size = 16;
+    public const int Height = 16;
 
-    public ChunkEntity()
+    public Vector3 Position { get; set; }
+
+    public ChunkEntity(Vector3 position)
     {
         Blocks = new BlockEntity[Size * Size * Height];
+        Position = position;
     }
-
 
     public BlockEntity[] Blocks { get; set; }
 

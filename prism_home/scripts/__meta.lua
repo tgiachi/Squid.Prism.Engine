@@ -139,6 +139,42 @@ function math_s.round(value) end
 ---@return number
 function math_s.sqrt(value) end
 
+---@description Max value
+---@param a string
+---@param b string
+---@return number
+function math_s.max(a, b) end
+
+---@description Min value
+---@param a string
+---@param b string
+---@return number
+function math_s.min(a, b) end
+
+---@description Get a random integer
+---@param min string
+---@param max string
+---@return number
+function random.int(min, max) end
+
+---@description Get a random float
+---@param min string
+---@param max string
+---@return number
+function random.float(min, max) end
+
+---@description Get a random boolean
+---@return boolean
+function random.bool() end
+
+---@param callback string
+---@return nil
+function task_queue.add_task(callback) end
+
+---@param callback string
+---@return nil
+function task_queue.add_task_main_thread(callback) end
+
 ---@param text string
 ---@return string
 function vars.r_text(text) end
