@@ -21,6 +21,7 @@ public class ServerServicesModule : IContainerModule
             .RegisterPrismService<IEventDispatcherService, EventDispatcherService>()
             .RegisterPrismService<ISchedulerSystemService, SchedulerSystemService>()
             .RegisterPrismService<IHttpServerService, HttpServerService>()
+            .RegisterPrismService<IDiagnosticSystemService, DiagnosticSystemService>()
             .RegisterPrismService<IScriptEngineService, ScriptEngineService>(10);
 
 
