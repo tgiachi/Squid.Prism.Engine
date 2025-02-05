@@ -49,11 +49,12 @@ public class ServerServicesModule : IContainerModule
             .RegisterNetworkMessage<MotdResponseMessage>(DefaultMessageTypeConst.MotdResponse)
             .RegisterNetworkMessage<LoginRequestMessage>(DefaultMessageTypeConst.LoginRequest)
             .RegisterNetworkMessage<LoginResponseMessage>(DefaultMessageTypeConst.LoginResponse)
-
             .RegisterNetworkMessage<AssetListRequestMessage>(DefaultMessageTypeConst.AssetListRequest)
             .RegisterNetworkMessage<AssetListResponseMessage>(DefaultMessageTypeConst.AssetListResponse)
             .RegisterNetworkMessage<AssetRequestMessage>(DefaultMessageTypeConst.AssetRequest)
             .RegisterNetworkMessage<AssetResponseMessage>(DefaultMessageTypeConst.AssetResponse)
+            .RegisterNetworkMessage<PlayerMoveRequestMessage>(DefaultMessageTypeConst.PlayerMoveRequest)
+            .RegisterNetworkMessage<PlayerMoveResponseMessage>(DefaultMessageTypeConst.PlayerMoveResponse)
             ;
 
 
