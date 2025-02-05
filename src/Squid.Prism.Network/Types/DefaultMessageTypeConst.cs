@@ -17,4 +17,7 @@ public static class DefaultMessageTypeConst
 
     public const int AssetListRequest = 0x0009;
     public const int AssetListResponse = 0x000A;
+
+    public const int PlayerMoveRequest = 0x000B;
+    public const int PlayerMoveResponse = 0x000C;
 }

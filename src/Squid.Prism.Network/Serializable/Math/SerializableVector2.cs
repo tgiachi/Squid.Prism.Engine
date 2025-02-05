@@ -1,7 +1,7 @@
 using System.Numerics;
 using ProtoBuf;
 
-namespace Squid.Prism.Server.Core.Serializable.Math;
+namespace Squid.Prism.Network.Serializable.Math;
 
 [ProtoContract]
 public class SerializableVector2
