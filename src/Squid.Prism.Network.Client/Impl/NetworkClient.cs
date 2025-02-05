@@ -30,7 +30,6 @@ public class NetworkClient : INetworkClient
 
     private bool _connected;
 
-
     private readonly INetworkMessageFactory _networkMessageFactory;
 
     private readonly NetPacketProcessor _netPacketProcessor = new();

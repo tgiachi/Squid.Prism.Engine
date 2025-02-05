@@ -25,8 +25,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Squid.Prism.Engine.Core\Squid.Prism.Engine.Core.csproj" />
-      <ProjectReference Include="..\Squid.Prism.Network\Squid.Prism.Network.csproj" />
+        <ProjectReference Include="..\Squid.Prism.Engine.Core\Squid.Prism.Engine.Core.csproj"/>
+        <ProjectReference Include="..\Squid.Prism.Network\Squid.Prism.Network.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="PropertyChanged.Fody" PrivateAssets="all" Version="4.1.0"/>
     </ItemGroup>
 
 </Project>
