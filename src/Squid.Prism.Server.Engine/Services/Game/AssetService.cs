@@ -60,4 +60,48 @@ public class AssetService : IAssetService
     {
         return _assetTypes;
     }
+
+    public (byte[] data, int totalParts) GetAssetContent(string name, long size, int currentPart)
+    {
+        var asset = _assetTypes.FirstOrDefault(a => a.Name == name);
+
+        if (asset == null)
+        {
+            throw new FileNotFoundException($"Asset not found: {name}");
+        }
+
+        var data = File.ReadAllBytes(asset.FileName);
+
+        var totalParts = (int)Math.Ceiling(data.Length / (double)size);
+
+        return (data.Skip(currentPart * (int)size).Take((int)size).ToArray(), totalParts);
+    }
+
+    public long GetAssetSize(string name)
+    {
+        var asset = _assetTypes.FirstOrDefault(a => a.Name == name);
+
+        if (asset == null)
+        {
+            throw new FileNotFoundException($"Asset not found: {name}");
+        }
+
+        var data = File.ReadAllBytes(asset.FileName);
+
+        return data.Length;
+    }
+
+    public int GetMaxParts(string name, int size)
+    {
+        var asset = _assetTypes.FirstOrDefault(a => a.Name == name);
+
+        if (asset == null)
+        {
+            throw new FileNotFoundException($"Asset not found: {name}");
+        }
+
+        var data = File.ReadAllBytes(asset.FileName);
+
+        return (int)Math.Ceiling(data.Length / (double)size);
+    }
 }

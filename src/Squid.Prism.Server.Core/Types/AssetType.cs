@@ -1,6 +1,6 @@
 namespace Squid.Prism.Server.Core.Types;
 
-public enum AssetType
+public enum AssetType : byte
 {
     Texture,
     Model,

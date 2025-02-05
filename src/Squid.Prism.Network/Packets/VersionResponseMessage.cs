@@ -7,7 +7,7 @@ namespace Squid.Prism.Network.Packets;
 [ProtoContract]
 public class VersionResponseMessage : INetworkMessage
 {
-    public int MessageRequestType => DefaultMessageTypeConst.VersionMessageResponse;
+    public int RequestType => DefaultMessageTypeConst.VersionResponse;
 
     [ProtoMember(1)] public string Version { get; set; }
 

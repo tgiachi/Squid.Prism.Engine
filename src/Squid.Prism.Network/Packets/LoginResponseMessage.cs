@@ -7,7 +7,7 @@ namespace Squid.Prism.Network.Packets;
 [ProtoContract]
 public class LoginResponseMessage : INetworkMessage
 {
-    public int MessageRequestType => DefaultMessageTypeConst.LoginMessageResponse;
+    public int RequestType => DefaultMessageTypeConst.LoginResponse;
 
     [ProtoMember(1)] public bool Success { get; set; }
 

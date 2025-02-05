@@ -9,6 +9,7 @@ using Squid.Prism.Server.Core.Interfaces.Services;
 using Squid.Prism.Server.Core.Interfaces.Services.Game;
 using Squid.Prism.Server.Engine.Services;
 using Squid.Prism.Server.Engine.Services.Game;
+using Squid.Prism.Server.Engine.Services.Handlers;
 
 namespace Squid.Prism.Server.Engine.Modules;
 
@@ -32,17 +33,27 @@ public class ServerServicesModule : IContainerModule
 
 
         services
+            .RegisterPrismService<AssetHandler>()
+            ;
+
+
+        services
             .RegisterPrismService<IDatabaseService, LiteDbDatabaseService>(9)
             .RegisterDatabaseEntity<UserEntity>();
 
 
         services
-            .RegisterNetworkMessage<VersionRequestMessage>(DefaultMessageTypeConst.VersionMessageRequest)
-            .RegisterNetworkMessage<VersionResponseMessage>(DefaultMessageTypeConst.VersionMessageResponse)
-            .RegisterNetworkMessage<MotdRequestMessage>(DefaultMessageTypeConst.MotdMessageRequest)
-            .RegisterNetworkMessage<MotdResponseMessage>(DefaultMessageTypeConst.MotdMessageResponse)
-            .RegisterNetworkMessage<LoginRequestMessage>(DefaultMessageTypeConst.LoginMessageRequest)
-            .RegisterNetworkMessage<LoginResponseMessage>(DefaultMessageTypeConst.LoginMessageResponse)
+            .RegisterNetworkMessage<VersionRequestMessage>(DefaultMessageTypeConst.VersionRequest)
+            .RegisterNetworkMessage<VersionResponseMessage>(DefaultMessageTypeConst.VersionResponse)
+            .RegisterNetworkMessage<MotdRequestMessage>(DefaultMessageTypeConst.MotdRequest)
+            .RegisterNetworkMessage<MotdResponseMessage>(DefaultMessageTypeConst.MotdResponse)
+            .RegisterNetworkMessage<LoginRequestMessage>(DefaultMessageTypeConst.LoginRequest)
+            .RegisterNetworkMessage<LoginResponseMessage>(DefaultMessageTypeConst.LoginResponse)
+
+            .RegisterNetworkMessage<AssetListRequestMessage>(DefaultMessageTypeConst.AssetListRequest)
+            .RegisterNetworkMessage<AssetListResponseMessage>(DefaultMessageTypeConst.AssetListResponse)
+            .RegisterNetworkMessage<AssetRequestMessage>(DefaultMessageTypeConst.AssetRequest)
+            .RegisterNetworkMessage<AssetResponseMessage>(DefaultMessageTypeConst.AssetResponse)
             ;
 
 

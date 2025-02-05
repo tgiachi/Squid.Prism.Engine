@@ -62,6 +62,6 @@ public class MessageTypesServiceTests
 
     public class MockNetworkMessage : INetworkMessage
     {
-        public int MessageRequestType => 0x01;
+        public int RequestType => 0x01;
     }
 }

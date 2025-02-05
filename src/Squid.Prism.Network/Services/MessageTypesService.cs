@@ -86,7 +86,7 @@ public class MessageTypesService : IMessageTypesService
     {
         var instance = Activator.CreateInstance<T>();
 
-        RegisterMessageType(instance.MessageRequestType, typeof(T));
+        RegisterMessageType(instance.RequestType, typeof(T));
 
         instance = default;
     }
