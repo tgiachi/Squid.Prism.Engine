@@ -2,13 +2,22 @@ namespace Squid.Prism.Network.Types;
 
 public static class DefaultMessageTypeConst
 {
-    public static readonly int VersionMessageRequest = 0x0001;
-    public static readonly int VersionMessageResponse = 0x0002;
+    public const int VersionRequest = 0x0001;
+    public const int VersionResponse = 0x0002;
 
-    public static readonly int MotdMessageRequest = 0x0003;
-    public static readonly int MotdMessageResponse = 0x0004;
+    public const int MotdRequest = 0x0003;
+    public const int MotdResponse = 0x0004;
 
 
-    public static readonly int LoginMessageRequest = 0x0005;
-    public static readonly int LoginMessageResponse = 0x0006;
+    public const int LoginRequest = 0x0005;
+    public const int LoginResponse = 0x0006;
+
+    public const int AssetRequest = 0x0007;
+    public const int AssetResponse = 0x0008;
+
+    public const int AssetListRequest = 0x0009;
+    public const int AssetListResponse = 0x000A;
+
+    public const int PlayerMoveRequest = 0x000B;
+    public const int PlayerMoveResponse = 0x000C;
 }

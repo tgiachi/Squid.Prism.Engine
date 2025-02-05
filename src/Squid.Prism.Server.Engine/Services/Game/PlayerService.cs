@@ -1,10 +1,15 @@
+using System.Collections.Concurrent;
+using System.Numerics;
+using System.Reactive.Linq;
 using Microsoft.Extensions.Logging;
 using Squid.Prism.Engine.Core.Configs;
 using Squid.Prism.Engine.Core.Interfaces.Services;
 using Squid.Prism.Network.Data.Events.Clients;
 using Squid.Prism.Network.Interfaces.Services;
 using Squid.Prism.Network.Packets;
+using Squid.Prism.Server.Core.Data.GameObjects;
 using Squid.Prism.Server.Core.Entities;
+using Squid.Prism.Server.Core.Extensions;
 using Squid.Prism.Server.Core.Interfaces.Services;
 using Squid.Prism.Server.Core.Interfaces.Services.Game;
 
@@ -26,6 +31,9 @@ public class PlayerService : IPlayerService
 
     [ConfigVariable("motd")] public string[] Motd { get; set; }
 
+    private readonly ConcurrentDictionary<string, PlayerObject> _players = new();
+
+
     public PlayerService(
         ILogger<PlayerService> logger, INetworkServer networkServer, IEventBusService eventBusService,
         IVariablesService variablesService, IVersionService versionService, INetworkSessionService networkSessionService,
@@ -44,8 +52,21 @@ public class PlayerService : IPlayerService
 
         _networkServer.RegisterMessageListener<VersionRequestMessage>((s, _) => SendVersionAsync(s));
         _networkServer.RegisterMessageListener<MotdRequestMessage>((s, _) => SendMotdAsync(s));
-
         _networkServer.RegisterMessageListener<LoginRequestMessage>(OnLoginMessageRequest);
+        _networkServer.RegisterMessageListener<PlayerMoveRequestMessage>(OnPlayerMoveRequest);
+    }
+
+    private async ValueTask OnPlayerMoveRequest(string sessionId, PlayerMoveRequestMessage message)
+    {
+        if (_networkSessionService.IsLoggedIn(sessionId))
+        {
+            _logger.LogDebug("Player {sessionId} moved to {position}", sessionId, message.Position);
+            if (_players.TryGetValue(sessionId, out var playerObject))
+            {
+                playerObject.Position = message.Position;
+                playerObject.Rotation = message.Rotation;
+            }
+        }
     }
 
     private async ValueTask OnLoginMessageRequest(string sessionId, LoginRequestMessage requestMessage)
@@ -74,6 +95,8 @@ public class PlayerService : IPlayerService
         var sessionObject = _networkSessionService.GetSessionObject(sessionId);
         sessionObject.IsLoggedIn = true;
 
+        AddPlayer(sessionId);
+
         await _networkServer.SendMessageAsync(sessionId, new LoginResponseMessage(true, "Login successful"));
     }
 
@@ -81,6 +104,42 @@ public class PlayerService : IPlayerService
     {
         return Task.CompletedTask;
     }
+
+    private void AddPlayer(string sessionId)
+    {
+        var playerObject = new PlayerObject();
+        _logger.LogDebug("Adding player {sessionId}", sessionId);
+        _players.TryAdd(sessionId, playerObject);
+        playerObject.PositionSubject.Sample(TimeSpan.FromMilliseconds(50))
+            .Subscribe(
+                position => OnPlayerPositionChanged(sessionId, position)
+            );
+    }
+
+    private async Task OnPlayerPositionChanged(string sessionId, Vector3 obj)
+    {
+        _logger.LogDebug("Player {sessionId} position changed to {position}", sessionId, obj);
+        await NotifyPlayerPositionChanged(sessionId);
+    }
+
+
+    private async Task NotifyPlayerPositionChanged(string sessionId)
+    {
+        var sessions = _networkSessionService.GetSessionIds
+            .Where(s => s != sessionId);
+
+        foreach (var destinationSessionId in sessions)
+        {
+            if (_players.TryGetValue(sessionId, out var playerObject))
+            {
+                await _networkServer.SendMessageAsync(
+                    destinationSessionId,
+                    new PlayerMoveResponseMessage(sessionId, playerObject.Position, playerObject.Rotation)
+                );
+            }
+        }
+    }
+
 
     private async Task OnClientConnected(ClientConnectedEvent obj)
     {

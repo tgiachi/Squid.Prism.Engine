@@ -7,7 +7,7 @@ namespace Squid.Prism.Network.Packets;
 [ProtoContract]
 public class MotdResponseMessage : INetworkMessage
 {
-    public int MessageRequestType => DefaultMessageTypeConst.MotdMessageResponse;
+    public int RequestType => DefaultMessageTypeConst.MotdResponse;
 
     [ProtoMember(1)] public List<string> Message { get; set; }
 

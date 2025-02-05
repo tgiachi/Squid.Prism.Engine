@@ -4,11 +4,11 @@ using Squid.Prism.Server.Core.Interfaces.Services.Game;
 namespace Squid.Prism.Server.Engine.Scripts;
 
 [ScriptModule("blocks")]
-public class WorldModule
+public class BlockModule
 {
     private readonly IBlockService _blockService;
 
-    public WorldModule(IBlockService blockService)
+    public BlockModule(IBlockService blockService)
     {
         _blockService = blockService;
     }

@@ -74,7 +74,7 @@ function blocks.add_block(blockId, Name, TextureId, IsSolid, IsTransparent, IsLi
 ---@param y string
 ---@param seed string
 ---@return number
-function noise.2d(x, y, seed) end
+function noise.two(x, y, seed) end
 
 ---@description Get 3D noise
 ---@param x string
@@ -82,7 +82,7 @@ function noise.2d(x, y, seed) end
 ---@param z string
 ---@param seed string
 ---@return number
-function noise.3d(x, y, z, seed) end
+function noise.three(x, y, z, seed) end
 
 ---@description Add a job to the scheduler, Interval in seconds
 ---@param name string
@@ -138,6 +138,56 @@ function math_s.round(value) end
 ---@param value string
 ---@return number
 function math_s.sqrt(value) end
+
+---@description Max value
+---@param a string
+---@param b string
+---@return number
+function math_s.max(a, b) end
+
+---@description Min value
+---@param a string
+---@param b string
+---@return number
+function math_s.min(a, b) end
+
+---@description Get a random integer
+---@param min string
+---@param max string
+---@return number
+function random.int(min, max) end
+
+---@description Get a random float
+---@param min string
+---@param max string
+---@return number
+function random.float(min, max) end
+
+---@description Get a random boolean
+---@return boolean
+function random.bool() end
+
+---@param callback string
+---@return nil
+function task_queue.add_task(callback) end
+
+---@param callback string
+---@return nil
+function task_queue.add_task_main_thread(callback) end
+
+---@param builder string
+---@return nil
+function world_builder.add_layer(builder) end
+
+---@param id string
+---@param name string
+---@return nil
+function world_builder.add_biome(id, name) end
+
+---@param name string
+---@param fileName string
+---@return nil
+function assets.add_file(name, fileName) end
 
 ---@param text string
 ---@return string

@@ -19,10 +19,7 @@ namespace Squid.Prism.Server.Engine.Services;
 public class ScriptEngineService : IScriptEngineService
 {
     private readonly ILogger _logger = Log.ForContext<ScriptEngineService>();
-
     private readonly IServiceProvider _serviceProvider;
-
-
     private readonly Lua _luaEngine;
 
     private readonly LuaTypeDefinitionsGenerator _typeGenerator = new();

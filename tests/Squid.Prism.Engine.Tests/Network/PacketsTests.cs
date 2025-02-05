@@ -37,7 +37,7 @@ public class PacketsTests
             TestValue = 1
         };
 
-        var encodedPacket = await encoder.EncodeAsync(packet, packet.MessageRequestType);
+        var encodedPacket = await encoder.EncodeAsync(packet, packet.RequestType);
 
 
         Assert.That(encodedPacket, Is.Not.Null);
@@ -64,7 +64,7 @@ public class PacketsTests
             TestValue = 1
         };
 
-        var encodedPacket = await encoder.EncodeAsync(packet, packet.MessageRequestType);
+        var encodedPacket = await encoder.EncodeAsync(packet, packet.RequestType);
 
         Assert.That(encodedPacket, Is.Not.Null);
         var decodedPacket = await decoder.DecodeAsync(encodedPacket, typeof(TestPacket));
@@ -89,7 +89,7 @@ public class PacketsTests
             TestValue = 1
         };
 
-        var encodedPacket = await encoder.EncodeAsync(packet, packet.MessageRequestType);
+        var encodedPacket = await encoder.EncodeAsync(packet, packet.RequestType);
 
         Assert.That(encodedPacket, Is.Not.Null);
 
@@ -115,7 +115,7 @@ public class PacketsTests
             TestValue = 1
         };
 
-        var encodedPacket = await encoder.EncodeAsync(packet, packet.MessageRequestType);
+        var encodedPacket = await encoder.EncodeAsync(packet, packet.RequestType);
 
         Assert.That(encodedPacket, Is.Not.Null);
 
@@ -143,7 +143,7 @@ public class PacketsTests
             )).ToList()
         };
 
-        var encodedPacket = await encoder.EncodeAsync(packet, packet.MessageRequestType);
+        var encodedPacket = await encoder.EncodeAsync(packet, packet.RequestType);
 
         Assert.That(encodedPacket, Is.Not.Null);
 

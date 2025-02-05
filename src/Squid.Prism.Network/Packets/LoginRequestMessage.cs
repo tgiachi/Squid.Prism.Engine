@@ -11,7 +11,7 @@ public class LoginRequestMessage : INetworkMessage
 
     [ProtoMember(2)] public string Password { get; set; }
 
-    public int MessageRequestType => DefaultMessageTypeConst.LoginMessageRequest;
+    public int RequestType => DefaultMessageTypeConst.LoginRequest;
 
     public LoginRequestMessage(string username, string password)
     {

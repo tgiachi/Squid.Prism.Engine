@@ -16,11 +16,15 @@ public class ScriptContainerModule : IContainerModule
             .RegisterPrismService<EventsModule>()
             .RegisterPrismService<FileModule>()
             .RegisterPrismService<UsersModule>()
-            .RegisterPrismService<WorldModule>()
+            .RegisterPrismService<BlockModule>()
             .RegisterPrismService<NoiseModule>()
             .RegisterPrismService<SchedulerJobModule>()
             .RegisterPrismService<PlayerServiceModule>()
             .RegisterPrismService<MathModule>()
+            .RegisterPrismService<RandomModule>()
+            .RegisterPrismService<ProcessingQueueModule>()
+            .RegisterPrismService<WorldBuilderModule>()
+            .RegisterPrismService<AssetModule>()
             .RegisterPrismService<VariableServiceModule>();
         ;
     }
