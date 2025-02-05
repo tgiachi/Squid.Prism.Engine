@@ -20,4 +20,7 @@ public static class DefaultMessageTypeConst
 
     public const int PlayerMoveRequest = 0x000B;
     public const int PlayerMoveResponse = 0x000C;
+
+    public const int ChunkRequest = 0x000D;
+    public const int ChunkResponse = 0x000E;
 }
