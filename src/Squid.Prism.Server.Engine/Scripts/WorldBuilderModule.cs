@@ -1,4 +1,5 @@
 using NLua;
+using Squid.Prism.Engine.Core.World;
 using Squid.Prism.Server.Core.Attributes.Scripts;
 using Squid.Prism.Server.Core.Data.World;
 using Squid.Prism.Server.Core.Interfaces.Services.Game;

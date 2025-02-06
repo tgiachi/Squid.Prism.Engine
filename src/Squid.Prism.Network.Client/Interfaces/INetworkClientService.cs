@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Numerics;
 using System.Reactive.Subjects;
+using Squid.Prism.Engine.Core.World;
 using Squid.Prism.Server.Core.Data.World;
 
 namespace Squid.Prism.Network.Client.Interfaces;

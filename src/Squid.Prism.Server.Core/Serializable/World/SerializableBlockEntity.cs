@@ -1,4 +1,5 @@
 using ProtoBuf;
+using Squid.Prism.Engine.Core.World;
 using Squid.Prism.Server.Core.Data.World;
 
 namespace Squid.Prism.Server.Core.Serializable.World;

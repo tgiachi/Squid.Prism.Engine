@@ -3,6 +3,7 @@ using System.Numerics;
 using Microsoft.Extensions.Logging;
 using Squid.Prism.Engine.Core.Configs;
 using Squid.Prism.Engine.Core.Interfaces.Services;
+using Squid.Prism.Engine.Core.World;
 using Squid.Prism.Server.Core.Data.Configs;
 using Squid.Prism.Server.Core.Data.World;
 using Squid.Prism.Server.Core.Data.World.Build;

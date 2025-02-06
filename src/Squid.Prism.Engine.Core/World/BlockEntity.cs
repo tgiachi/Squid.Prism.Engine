@@ -1,6 +1,6 @@
-using Squid.Prism.Server.Core.Data.Services;
+using Squid.Prism.Engine.Core.Data.World;
 
-namespace Squid.Prism.Server.Core.Data.World;
+namespace Squid.Prism.Engine.Core.World;
 
 public class BlockEntity
 {

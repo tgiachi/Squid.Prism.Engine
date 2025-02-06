@@ -3,6 +3,7 @@ using System.Numerics;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Microsoft.Extensions.Logging;
+using Squid.Prism.Engine.Core.World;
 using Squid.Prism.Network.Client.Interfaces;
 using Squid.Prism.Network.Packets;
 using Squid.Prism.Server.Core.Data.World;

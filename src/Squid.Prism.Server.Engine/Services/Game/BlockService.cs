@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using Squid.Prism.Engine.Core.Data.World;
 using Squid.Prism.Server.Core.Data.Services;
 using Squid.Prism.Server.Core.Interfaces.Services.Game;
 using Squid.Prism.Server.Core.Types;

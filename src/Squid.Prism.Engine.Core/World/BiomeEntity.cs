@@ -1,4 +1,4 @@
-namespace Squid.Prism.Server.Core.Data.World;
+namespace Squid.Prism.Engine.Core.World;
 
 public class BiomeEntity
 {
